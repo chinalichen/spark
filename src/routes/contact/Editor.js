@@ -146,14 +146,21 @@ class Editor extends Component {
     this.points = null;
     this.count = 0;
   }
+  updateCurrentPath() {
+    if (this.points) {
+      this.setState({ currentPath: solve(this.points) });
+    }
+  }
   handleDrawStart(evt) {
     this.points = [evt.clientX, evt.clientY];
+    this.updateCurrentPath();
   }
   handleDrawMove(evt) {
     if (!this.points) {
       return;
     }
     this.points = this.points.concat([evt.clientX, evt.clientY]);
+    this.updateCurrentPath();
   }
   handleDrawEnd(evt) {
     if (!this.points) {
@@ -163,7 +170,7 @@ class Editor extends Component {
     const d = solve(this.points, 1);
     this.points = null;
     const paths = this.state.paths.concat({ id: (this.count += 1), d });
-    this.setState({ paths });
+    this.setState({ paths, currentPath: null });
   }
   render() {
     return (
@@ -177,6 +184,11 @@ class Editor extends Component {
           {this.state.paths.map(p => (
             <path className={s.paths} key={p.id} d={p.d} />
           ))}
+        </svg>
+        <svg className={s.svgDrawing}>
+          {this.state.currentPath && (
+            <path className={s.paths} d={this.state.currentPath} />
+          )}
         </svg>
       </div>
     );
