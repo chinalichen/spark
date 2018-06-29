@@ -9,13 +9,13 @@
 
 import React from 'react';
 import Layout from '../../components/Layout';
-import Contact from './Contact';
+import Paint from './Paint';
 
 function action() {
   return {
     component: (
       <Layout>
-        <Contact />
+        <Paint />
       </Layout>
     ),
   };

@@ -8,7 +8,7 @@
  */
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Contact.css';
+import s from './Paint.css';
 import Editor from './Editor';
 
 class Contact extends React.Component {
