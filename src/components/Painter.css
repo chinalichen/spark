@@ -1,8 +1,12 @@
 .painter-container {
   height: 100%; }
   .painter-container .svgDrawing {
+    top: 0;
+    left: 0;
+    position: absolute;
     height: 100%;
     width: 100%; }
   .painter-container .paths {
     fill: none;
-    stroke: black; }
+    stroke: black;
+    stroke-width: 3; }
