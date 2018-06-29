@@ -8,16 +8,11 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
 import Paint from './Paint';
 
 function action() {
   return {
-    component: (
-      <Layout>
-        <Paint />
-      </Layout>
-    ),
+    component: <Paint />,
   };
 }
 
