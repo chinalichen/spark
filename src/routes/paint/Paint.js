@@ -15,10 +15,7 @@ class Contact extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <h1>haha</h1>
-          <Editor />
-        </div>
+        <Editor />
       </div>
     );
   }
