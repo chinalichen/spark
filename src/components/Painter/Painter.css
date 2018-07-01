@@ -1,5 +1,10 @@
 .painter-container {
   height: 100%; }
+  .painter-container .commandBar {
+    height: 3rem; }
+  .painter-container .canvas {
+    height: calc(100% - 3rem);
+    position: relative; }
   .painter-container .svgDrawing {
     top: 0;
     left: 0;

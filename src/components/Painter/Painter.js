@@ -25,7 +25,7 @@ export default class Painter extends Component {
     if (!this.pointsList) {
       this.pointsList = [];
     }
-    this.pointsList[idx] = (this.pointsList[idx] || []).concat([x, y]);
+    this.pointsList[idx] = (this.pointsList[idx] || []).concat([x - this.canvasRect.x, y - this.canvasRect.y]);
   }
   updateCurrentPath() {
     if (this.hasPoints()) {
@@ -88,26 +88,35 @@ export default class Painter extends Component {
     const paths = this.state.paths.concat(ds);
     this.setState({ paths, currentPaths: [] });
   }
+  componentDidMount() {
+    this.canvasRect = this.canvasElem.getBoundingClientRect();
+  }
   render() {
     return (
-      <div
-        className="painter-container"
-        role="presentation"
-        onTouchStart={this.handleTouchStart}
-        onTouchMove={this.handleTouchMove}
-        onTouchEnd={this.handleTouchEnd}
-        onMouseDown={this.handleDrawStart}
-        onMouseMove={this.handleDrawMove}
-        onMouseUp={this.handleDrawEnd}
-      >
-        <svg className="svgDrawing">
-          {this.state.paths.map(p => (
-            <path className="paths" key={p.id} d={p.d} />
-          ))}
-        </svg>
-        <svg className="svgDrawing">
-          {this.state.currentPaths.map((d, i) => <path className="paths" key={i} d={d} />)}
-        </svg>
+      <div className="painter-container">
+        <div className="commandBar">
+
+        </div>
+        <div
+          ref={elem => { this.canvasElem = elem }}
+          className="canvas"
+          role="presentation"
+          onTouchStart={this.handleTouchStart}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchEnd}
+          onMouseDown={this.handleDrawStart}
+          onMouseMove={this.handleDrawMove}
+          onMouseUp={this.handleDrawEnd}
+        >
+          <svg className="svgDrawing">
+            {this.state.paths.map(p => (
+              <path className="paths" key={p.id} d={p.d} />
+            ))}
+          </svg>
+          <svg className="svgDrawing">
+            {this.state.currentPaths.map((d, i) => <path className="paths" key={i} d={d} />)}
+          </svg>
+        </div>
       </div>
     );
   }
