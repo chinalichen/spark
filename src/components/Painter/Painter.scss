@@ -1,22 +1,30 @@
 .painter-container {
+  height: 100%;
+  .commandBar {
+    height: 3rem;
+    display: flex;
+    .commandBtn {
+      height: 2.8rem;
+      width: 2.8rem;
+    }
+    .blank {
+      flex: auto;
+    }
+  }
+  .canvas {
+    height: calc(100% - 3rem);
+    position: relative;
+  }
+  .svgDrawing {
+    top: 0;
+    left: 0;
+    position: absolute;
     height: 100%;
-    .commandBar {
-        height: 3rem;
-    }
-    .canvas {
-        height: calc(100% - 3rem);
-        position: relative;
-    }
-    .svgDrawing {
-        top: 0;
-        left: 0;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
-    .paths {
-        fill: none;
-        stroke: black;
-        stroke-width: 3;
-    }
+    width: 100%;
+  }
+  .paths {
+    fill: none;
+    stroke: black;
+    stroke-width: 3;
+  }
 }

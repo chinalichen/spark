@@ -1,7 +1,13 @@
 .painter-container {
   height: 100%; }
   .painter-container .commandBar {
-    height: 3rem; }
+    height: 3rem;
+    display: flex; }
+    .painter-container .commandBar .commandBtn {
+      height: 2.8rem;
+      width: 2.8rem; }
+    .painter-container .commandBar .blank {
+      flex: auto; }
   .painter-container .canvas {
     height: calc(100% - 3rem);
     position: relative; }

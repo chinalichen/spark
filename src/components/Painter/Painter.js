@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Painter.css';
 import { hasXY, solve } from './utils';
+import CommandBar from './CommandBar';
 
 export default class Painter extends Component {
   constructor(props) {
@@ -94,9 +95,7 @@ export default class Painter extends Component {
   render() {
     return (
       <div className="painter-container">
-        <div className="commandBar">
-
-        </div>
+        <CommandBar />
         <div
           ref={elem => { this.canvasElem = elem }}
           className="canvas"
