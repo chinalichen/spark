@@ -1,0 +1,14 @@
+.commandBar {
+  height: 3rem;
+  border-bottom: 1px #dedede solid;
+  display: flex; }
+  .commandBar .blank {
+    flex: auto; }
+  .commandBar .section {
+    height: 100%;
+    flex: 0 1 auto; }
+  .commandBar .separator {
+    flex: 0 0 auto;
+    border-left: 1px #dedede solid;
+    width: 1px;
+    height: 100%; }
