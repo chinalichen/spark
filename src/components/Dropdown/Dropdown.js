@@ -32,7 +32,7 @@ export default class Dropdown extends Component {
     evt.stopPropagation();
     evt.preventDefault();
     const { bottom, left } = this.trigger.getBoundingClientRect();
-    this.setState({ shown: true, x: left, y: bottom });
+    this.setState({ shown: true, x: bottom, y: left });
   }
   render() {
     return (
