@@ -9,6 +9,8 @@ export default class Painter extends Component {
     shape: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
+
+    doc: PropTypes.object,
   };
   constructor(props) {
     super(props);
@@ -36,7 +38,15 @@ export default class Painter extends Component {
   }
   updateCurrentPath() {
     if (this.hasPoints()) {
-      this.setState({ currentPaths: this.pointsList.map(ps => solve(ps)) });
+      this.setState({
+        currentPaths: this.pointsList.map((ps, i) => ({
+          d: solve(ps),
+          key: i,
+          stroke: this.props.color,
+          strokeWidth: this.props.size,
+          fill: 'none',
+        }))
+      });
     }
   }
   handleDrawStart(evt) {
@@ -57,7 +67,13 @@ export default class Painter extends Component {
     this.updatePoints(0, evt.clientX, evt.clientY);
     const d = solve(this.pointsList[0], 1);
     this.pointsList = null;
-    const paths = this.state.paths.concat({ id: (this.count += 1), d });
+    const paths = this.state.paths.concat({
+      key: (this.count += 1),
+      d,
+      stroke: this.props.color,
+      strokeWidth: this.props.size,
+      fill: 'none',
+    });
     this.setState({ paths, currentPaths: [] });
   }
   handleTouchStart(evt) {
@@ -88,7 +104,13 @@ export default class Painter extends Component {
       }
       const points = this.pointsList[te.identifier];
       this.pointsList[te.identifier] = null;
-      return { id: (this.count += 1), d: solve(points, 1) };
+      return {
+        key: (this.count += 1),
+        d: solve(points, 1),
+        stroke: this.props.color,
+        strokeWidth: this.props.size,
+        fill: 'none',
+      };
     });
     const paths = this.state.paths.concat(ds);
     this.setState({ paths });
@@ -112,12 +134,10 @@ export default class Painter extends Component {
           onMouseUp={this.handleDrawEnd}
         >
           <svg className="svgDrawing">
-            {this.state.paths.map(p => (
-              <path className="paths" key={p.id} d={p.d} />
-            ))}
+            {this.state.paths.map(({ key, d, ...styles }) => (<path key={key} d={d} style={{ ...styles }} />))}
           </svg>
           <svg className="svgDrawing">
-            {this.state.currentPaths.map((d, i) => <path className="paths" key={i} d={d} />)}
+            {this.state.currentPaths.map(({ key, d, ...styles }) => <path key={key} d={d} style={{ ...styles }} />)}
           </svg>
         </div>
       </div>
