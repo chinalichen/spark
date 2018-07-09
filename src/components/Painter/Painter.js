@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Painter.css';
-import { hasXY, solve } from './utils';
+import { hasXY, solve, distance } from './utils';
 import CommandBar from './CommandBar';
 
 export default class Painter extends Component {
+  static propTypes = {
+    shape: PropTypes.string,
+    size: PropTypes.number,
+    color: PropTypes.string,
+  };
   constructor(props) {
     super(props);
     this.handleDrawStart = this.handleDrawStart.bind(this);
@@ -55,9 +61,9 @@ export default class Painter extends Component {
     this.setState({ paths, currentPaths: [] });
   }
   handleTouchStart(evt) {
-    Array.from(evt.touches).forEach((te, idx) => {
+    Array.from(evt.changedTouches).forEach((te) => {
       if (hasXY(te)) {
-        this.updatePoints(idx, te.clientX, te.clientY);
+        this.updatePoints(te.identifier, te.clientX, te.clientY);
       }
     });
   }
@@ -65,9 +71,9 @@ export default class Painter extends Component {
     if (!this.hasPoints()) {
       return;
     }
-    Array.from(evt.touches).forEach((te, idx) => {
+    Array.from(evt.changedTouches).forEach((te) => {
       if (hasXY(te)) {
-        this.updatePoints(idx, te.clientX, te.clientY);
+        this.updatePoints(te.identifier, te.clientX, te.clientY);
       }
     });
     this.updateCurrentPath();
@@ -76,18 +82,16 @@ export default class Painter extends Component {
     if (!this.hasPoints()) {
       return;
     }
-    Array.from(evt.touches).forEach((te, idx) => {
+    const ds = Array.from(evt.changedTouches).map((te) => {
       if (hasXY(te)) {
-        this.updatePoints(idx, te.clientX, te.clientY);
+        this.updatePoints(te.identifier, te.clientX, te.clientY);
       }
+      const points = this.pointsList[te.identifier];
+      this.pointsList[te.identifier] = null;
+      return { id: (this.count += 1), d: solve(points, 1) };
     });
-    const ds = this.pointsList
-      .filter(ps => ps && ps.length > 0)
-      .map(ps => solve(ps, 1))
-      .map(d => ({ id: (this.count += 1), d }));
-    this.pointsList = null;
     const paths = this.state.paths.concat(ds);
-    this.setState({ paths, currentPaths: [] });
+    this.setState({ paths });
   }
   componentDidMount() {
     this.canvasRect = this.canvasElem.getBoundingClientRect();
