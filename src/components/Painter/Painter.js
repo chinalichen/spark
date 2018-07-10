@@ -11,18 +11,22 @@ export default class Painter extends Component {
     color: PropTypes.string,
 
     doc: PropTypes.object,
+
+    onDocChange: PropTypes.func,
   };
   constructor(props) {
     super(props);
+
+    this.count = props.doc.shapes.length;
+    this.points = null;
+    this.state = { paths: [], currentPaths: [] };
+
     this.handleDrawStart = this.handleDrawStart.bind(this);
     this.handleDrawMove = this.handleDrawMove.bind(this);
     this.handleDrawEnd = this.handleDrawEnd.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    this.state = { paths: [], currentPaths: [] };
-    this.points = null;
-    this.count = 0;
   }
   hasPoints() {
     if (!this.pointsList) {
@@ -53,11 +57,22 @@ export default class Painter extends Component {
     this.updatePoints(0, evt.clientX, evt.clientY);
     this.updateCurrentPath();
   }
+  handleTouchStart(evt) {
+    Array.from(evt.changedTouches).map(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
+    this.updateCurrentPath();
+  }
   handleDrawMove(evt) {
     if (!this.hasPoints()) {
       return;
     }
     this.updatePoints(0, evt.clientX, evt.clientY);
+    this.updateCurrentPath();
+  }
+  handleTouchMove(evt) {
+    if (!this.hasPoints()) {
+      return;
+    }
+    Array.from(evt.changedTouches).map(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
     this.updateCurrentPath();
   }
   handleDrawEnd(evt) {
@@ -67,32 +82,15 @@ export default class Painter extends Component {
     this.updatePoints(0, evt.clientX, evt.clientY);
     const d = solve(this.pointsList[0], 1);
     this.pointsList = null;
-    const paths = this.state.paths.concat({
+    const shapes = this.props.doc.shapes.concat({
       key: (this.count += 1),
       d,
       stroke: this.props.color,
       strokeWidth: this.props.size,
       fill: 'none',
-    });
-    this.setState({ paths, currentPaths: [] });
-  }
-  handleTouchStart(evt) {
-    Array.from(evt.changedTouches).forEach((te) => {
-      if (hasXY(te)) {
-        this.updatePoints(te.identifier, te.clientX, te.clientY);
-      }
-    });
-  }
-  handleTouchMove(evt) {
-    if (!this.hasPoints()) {
-      return;
-    }
-    Array.from(evt.changedTouches).forEach((te) => {
-      if (hasXY(te)) {
-        this.updatePoints(te.identifier, te.clientX, te.clientY);
-      }
-    });
-    this.updateCurrentPath();
+    })
+    this.props.onDocChange({ ...this.props.doc, shapes });
+    this.setState({ currentPaths: [] });
   }
   handleTouchEnd(evt) {
     if (!this.hasPoints()) {
@@ -134,7 +132,7 @@ export default class Painter extends Component {
           onMouseUp={this.handleDrawEnd}
         >
           <svg className="svgDrawing">
-            {this.state.paths.map(({ key, d, ...styles }) => (<path key={key} d={d} style={{ ...styles }} />))}
+            {this.props.doc.shapes.map(({ key, d, ...styles }) => (<path key={key} d={d} style={{ ...styles }} />))}
           </svg>
           <svg className="svgDrawing">
             {this.state.currentPaths.map(({ key, d, ...styles }) => <path key={key} d={d} style={{ ...styles }} />)}
