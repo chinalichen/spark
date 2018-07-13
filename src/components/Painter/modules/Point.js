@@ -15,7 +15,7 @@ export default class Point extends Shpae {
     this.meta = {
       type: Shapes.Point,
       id: this.id,
-      cx, cy, cr: size,
+      cx, cy, r: size,
       fill: foreColor,
       stroke: foreColor,
       strokeWidth: size,
@@ -24,7 +24,7 @@ export default class Point extends Shpae {
       key={this.id}
       cx={this.meta.cx}
       cy={this.meta.cy}
-      cr={this.meta.cr}
+      r={this.meta.r}
       stroke={this.meta.stroke}
       strokeWidth={this.meta.strokeWidth}
       fill={this.meta.fill} />
@@ -61,7 +61,7 @@ export default class Point extends Shpae {
       key={this.id}
       cx={this.meta.cx}
       cy={this.meta.cy}
-      cr={this.meta.cr}
+      r={this.meta.r}
       stroke={this.meta.stroke}
       strokeWidth={this.meta.strokeWidth}
       fill={this.meta.fill} />
