@@ -1,22 +1,42 @@
-export default class Point extends Graph {
-  constructor(points) {
+import React from 'react';
+import Shpae from './Shape';
+import { getID } from '../utils';
+import { Shapes } from '../Constants';
+
+export default class Point extends Shpae {
+  constructor(points, ctx) {
     super();
     if (!points) {
       return;
     }
-    this.id = points.length;
-    this.points = points;
-    this.props = Point.solve(points);
-    this.elem = <circle key={this.id} {...props} />
+    const { cx, cy } = Point.solve(points);
+    const { foreColor, backColor, size, shape } = ctx;
+    this.id = getID();
+    this.meta = {
+      type: Shapes.Point,
+      id: this.id,
+      cx, cy, cr: size,
+      fill: foreColor,
+      stroke: foreColor,
+      strokeWidth: size,
+    };
+    this.elem = <circle
+      key={this.id}
+      cx={this.meta.cx}
+      cy={this.meta.cy}
+      cr={this.meta.cr}
+      stroke={this.meta.stroke}
+      strokeWidth={this.meta.strokeWidth}
+      fill={this.meta.fill} />
   }
-  static generateID(points) {
-    return `k${points[0] || 0}_${points[1] || 0}`;
+  static type() {
+    return Shapes.Point;
   }
   static test(points) {
     if (!points) {
       return false;
     }
-    if (points.length > 2) {
+    if (points.length > 6) {
       return false;
     }
     return true;
@@ -27,8 +47,23 @@ export default class Point extends Graph {
     return {
       cx: x,
       cy: y,
-      cr: 1.5,
-      fill: 'black',
     };
+  }
+  toJSON() {
+    return {
+      ...this.meta
+    };
+  }
+  fromJSON(json) {
+    this.meta = json;
+    this.id = json.id;
+    this.elem = <circle
+      key={this.id}
+      cx={this.meta.cx}
+      cy={this.meta.cy}
+      cr={this.meta.cr}
+      stroke={this.meta.stroke}
+      strokeWidth={this.meta.strokeWidth}
+      fill={this.meta.fill} />
   }
 }

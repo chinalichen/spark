@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import './Painter.css';
 import { hasXY, solve, distance } from './utils';
 import CommandBar from './CommandBar';
+import Point from './modules/Point';
+import Path from './modules/Path';
+import Context from './modules/Context';
+import { createShape } from './modules/ShapeCreator';
 
 export default class Painter extends Component {
   static propTypes = {
@@ -80,16 +84,12 @@ export default class Painter extends Component {
       return;
     }
     this.updatePoints(0, evt.clientX, evt.clientY);
-    const d = solve(this.pointsList[0], 1);
-    this.pointsList = null;
-    const shapes = this.props.doc.shapes.concat({
-      key: (this.count += 1),
-      d,
-      stroke: this.props.color,
-      strokeWidth: this.props.size,
-      fill: 'none',
-    })
+    const shapeTypes = [Point, Path];
+    const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
+    const shape = new matched(this.pointsList[0], new Context());
+    const shapes = this.props.doc.shapes.concat(shape.toJSON());
     this.props.onDocChange({ ...this.props.doc, shapes });
+    this.pointsList = null;
     this.setState({ currentPaths: [] });
   }
   handleTouchEnd(evt) {
@@ -117,6 +117,7 @@ export default class Painter extends Component {
     this.canvasRect = this.canvasElem.getBoundingClientRect();
   }
   render() {
+    const shapes = this.props.doc.shapes.map(s => createShape(s)).map(s => s.elem);
     return (
       <div className="painter-container">
         <CommandBar />
@@ -132,7 +133,7 @@ export default class Painter extends Component {
           onMouseUp={this.handleDrawEnd}
         >
           <svg className="svgDrawing">
-            {this.props.doc.shapes.map(({ key, d, ...styles }) => (<path key={key} d={d} style={{ ...styles }} />))}
+            {shapes}
           </svg>
           <svg className="svgDrawing">
             {this.state.currentPaths.map(({ key, d, ...styles }) => <path key={key} d={d} style={{ ...styles }} />)}

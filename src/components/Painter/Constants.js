@@ -1,4 +1,4 @@
-export const Graph = {
+export const Shapes = {
     Path: 0,
     Line: 1,
     Point: 2,

@@ -1,13 +1,33 @@
-export default class Path extends Graph {
-  constructor(points) {
+import React from 'react';
+import Shpae from './Shape';
+import { getID } from '../utils';
+import { Shapes } from '../Constants';
+
+export default class Path extends Shpae {
+  constructor(points, ctx) {
     super();
     if (!points) {
       return;
     }
-    this.id = points.length;
-    this.points = points;
-    this.d = Path.solve(points);
-    this.elem = <path key={this.id} d={this.d} />
+    const { foreColor, backColor, size, shape } = ctx;
+    this.id = getID();
+    this.meta = {
+      type: Shapes.Path,
+      id: this.id,
+      d: Path.solve(points),
+      stroke: foreColor,
+      strokeWidth: size,
+      fill: 'none',
+    };
+    this.elem = <path
+      key={this.id}
+      d={this.meta.d}
+      stroke={this.meta.stroke}
+      strokeWidth={this.meta.strokeWidth}
+      fill={this.meta.fill} />
+  }
+  static type() {
+    return Shapes.Path;
   }
   static test(points) {
     if (!points) {
@@ -19,23 +39,23 @@ export default class Path extends Graph {
     return true;
   }
   static solve(points, k = 1) {
-    const size = data.length;
+    const size = points.length;
     const last = size - 4;
 
-    let path = `M${data[0]},${data[1]}`;
+    let path = `M${points[0]},${points[1]}`;
 
     for (let i = 0; i < size - 2; i += 2) {
-      const x0 = i ? data[i - 2] : data[0];
-      const y0 = i ? data[i - 1] : data[1];
+      const x0 = i ? points[i - 2] : points[0];
+      const y0 = i ? points[i - 1] : points[1];
 
-      const x1 = data[i + 0];
-      const y1 = data[i + 1];
+      const x1 = points[i + 0];
+      const y1 = points[i + 1];
 
-      const x2 = data[i + 2];
-      const y2 = data[i + 3];
+      const x2 = points[i + 2];
+      const y2 = points[i + 3];
 
-      const x3 = i !== last ? data[i + 4] : x2;
-      const y3 = i !== last ? data[i + 5] : y2;
+      const x3 = i !== last ? points[i + 4] : x2;
+      const y3 = i !== last ? points[i + 5] : y2;
 
       const cp1x = x1 + ((x2 - x0) / 6) * k;
       const cp1y = y1 + ((y2 - y0) / 6) * k;
@@ -47,5 +67,20 @@ export default class Path extends Graph {
     }
 
     return path;
+  }
+  toJSON() {
+    return {
+      ...this.meta
+    };
+  }
+  fromJSON(json) {
+    this.meta = json;
+    this.id = json.id;
+    this.elem = <path
+      key={this.id}
+      d={this.meta.d}
+      stroke={this.meta.stroke}
+      strokeWidth={this.meta.strokeWidth}
+      fill={this.meta.fill} />
   }
 }

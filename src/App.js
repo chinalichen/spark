@@ -12,7 +12,7 @@ class App extends Component {
   }
   handleDocChange(doc) {
     this.setState({ doc });
-    localStorage.setItem('doc', JSON.stringify(doc));
+    //localStorage.setItem('doc', JSON.stringify(doc));
   }
   render() {
     const props = {
