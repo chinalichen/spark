@@ -21,9 +21,14 @@ export default class Painter extends Component {
   constructor(props) {
     super(props);
 
+    const ctx = new Context();
+    ctx.foreColor = props.color;
+    ctx.size = props.size;
+    ctx.shape = props.shape;
+
     this.count = props.doc.shapes.length;
     this.points = null;
-    this.state = { paths: [], currentPaths: [] };
+    this.state = { paths: [], currentPaths: [], context: ctx };
 
     this.handleDrawStart = this.handleDrawStart.bind(this);
     this.handleDrawMove = this.handleDrawMove.bind(this);
@@ -86,7 +91,7 @@ export default class Painter extends Component {
     this.updatePoints(0, evt.clientX, evt.clientY);
     const shapeTypes = [Point, Path];
     const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
-    const shape = new matched(this.pointsList[0], new Context());
+    const shape = new matched(this.pointsList[0], this.state.context);
     const shapes = this.props.doc.shapes.concat(shape.toJSON());
     this.props.onDocChange({ ...this.props.doc, shapes });
     this.pointsList = null;
