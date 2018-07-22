@@ -1,0 +1,15 @@
+.board {
+  height: 100%; }
+  .board .canvas {
+    height: 100%;
+    position: relative; }
+  .board .svgDrawing {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%; }
+  .board .paths {
+    fill: none;
+    stroke: black;
+    stroke-width: 3; }

@@ -17,6 +17,7 @@ export default class Path extends Shpae {
       d: Path.solve(points),
       stroke: foreColor,
       strokeWidth: size,
+      strokeLinecap: 'round',
       fill: 'none',
     };
     this.elem = <path
@@ -24,6 +25,7 @@ export default class Path extends Shpae {
       d={this.meta.d}
       stroke={this.meta.stroke}
       strokeWidth={this.meta.strokeWidth}
+      strokeLinecap={this.meta.strokeLinecap}
       fill={this.meta.fill} />
   }
   static type() {
@@ -81,6 +83,7 @@ export default class Path extends Shpae {
       d={this.meta.d}
       stroke={this.meta.stroke}
       strokeWidth={this.meta.strokeWidth}
+      strokeLinecap={this.meta.strokeLinecap}
       fill={this.meta.fill} />
   }
 }

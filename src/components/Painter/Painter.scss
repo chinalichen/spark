@@ -1,19 +1,9 @@
-.painter-container {
+.painter {
   height: 100%;
-  .canvas {
+  .commandBarContainer {
+    height: 3rem;
+  }
+  .boardContainer {
     height: calc(100% - 3rem);
-    position: relative;
-  }
-  .svgDrawing {
-    top: 0;
-    left: 0;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-  }
-  .paths {
-    fill: none;
-    stroke: black;
-    stroke-width: 3;
   }
 }

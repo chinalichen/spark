@@ -18,7 +18,7 @@ export default class Point extends Shpae {
       cx, cy, r: size,
       fill: foreColor,
       stroke: foreColor,
-      strokeWidth: size,
+      strokeWidth: 0,
     };
     this.elem = <circle
       key={this.id}
