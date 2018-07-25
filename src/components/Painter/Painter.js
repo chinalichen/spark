@@ -15,14 +15,26 @@ export default class Painter extends Component {
 
     onDocChange: PropTypes.func,
   };
+  constructor(props) {
+    super(props);
+    this.handleSettingsChange = this.handleSettingsChange.bind(this);
+  }
+  handleSettingsChange(settings) {
+    this.setState(settings);
+  }
   render() {
+    const boardProps = {
+      shape: this.props.shape,
+      size: this.props.size,
+      color: this.state.color || this.props.color,
+    }
     return (
       <div className="painter">
         <div className="commandBarContainer">
-          <CommandBar {...this.props} />
+          <CommandBar {...this.props} onSettingsChange={this.handleSettingsChange} />
         </div>
         <div className="boardContainer">
-          <Board {...this.props} />
+          <Board doc={this.props.doc} {...boardProps} onDocChange={this.props.onDocChange} />
         </div>
       </div>
     );

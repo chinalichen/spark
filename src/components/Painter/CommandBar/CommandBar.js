@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Edit from './Edit';
 import Image from './Image';
 import Tools from './Edit';
@@ -9,6 +10,13 @@ import Separator from './Separator';
 import './CommandBar.css';
 
 export default class CommandBar extends Component {
+  static propTypes = {
+    onSettingsChange: PropTypes.func,
+  };
+  constructor(props) {
+    super(props);
+    
+  }
   render() {
     return (
       <div className="commandBar">
@@ -22,7 +30,7 @@ export default class CommandBar extends Component {
         <Separator />
         <Size />
         <Separator />
-        <Color />
+        <Color handleColorChange={this.handleColorChange} />
         <div className="blank"> </div>
       </div>
     );
