@@ -10,22 +10,24 @@ export default class Color extends Component {
   };
   constructor(props) {
     super(props);
-    this.state = { color: '#000' };
     this.handleColorChange = this.handleColorChange.bind(this);
   }
   handleColorChange({ hex }) {
-    this.setState({ color: hex });
+    if (this.props.onColorChange) {
+      this.props.onColorChange(hex);
+    }
   }
   render() {
+    const color = this.props.color;
     return (
       <div>
         <Dropdown trigger={
           <div>
             color
-            <div style={{ width: '1.5rem', height: '1rem', backgroundColor: this.state.color }}></div>
+            <div style={{ width: '1.5rem', height: '1rem', backgroundColor: color }}></div>
           </div>
         }>
-          <CompactPicker color={this.props.color || this.state.color} onChangeComplete={this.handleColorChange} />
+          <CompactPicker color={color} onChangeComplete={this.handleColorChange} />
         </Dropdown>
       </div>
     );

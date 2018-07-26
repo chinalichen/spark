@@ -10,9 +10,11 @@ import './Board.css';
 
 export default class Painter extends Component {
   static propTypes = {
-    shape: PropTypes.string,
-    size: PropTypes.number,
-    color: PropTypes.string,
+    settings: PropTypes.shape({
+      shape: PropTypes.string,
+      size: PropTypes.number,
+      color: PropTypes.string,
+    }),
 
     doc: PropTypes.object,
 
@@ -22,9 +24,9 @@ export default class Painter extends Component {
     super(props);
 
     const ctx = new Context();
-    ctx.foreColor = props.color;
-    ctx.size = props.size;
-    ctx.shape = props.shape;
+    ctx.foreColor = props.settings.color;
+    ctx.size = props.settings.size;
+    ctx.shape = props.settings.shape;
 
     this.count = props.doc.shapes.length;
     this.points = null;
@@ -36,6 +38,13 @@ export default class Painter extends Component {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    const ctx = new Context();
+    ctx.foreColor = nextProps.settings.color;
+    ctx.size = nextProps.settings.size;
+    ctx.shape = nextProps.settings.shape;
+    this.setState({ context: ctx });
   }
   hasPoints() {
     if (!this.pointsList) {
@@ -55,8 +64,8 @@ export default class Painter extends Component {
         currentPaths: this.pointsList.map((ps, i) => ({
           d: solve(ps),
           key: i,
-          stroke: this.props.color,
-          strokeWidth: this.props.size,
+          stroke: this.props.settings.color,
+          strokeWidth: this.props.settings.size,
           fill: 'none',
         }))
       });
@@ -110,8 +119,8 @@ export default class Painter extends Component {
       return {
         key: (this.count += 1),
         d: solve(points, 1),
-        stroke: this.props.color,
-        strokeWidth: this.props.size,
+        stroke: this.props.settings.color,
+        strokeWidth: this.props.settings.size,
         fill: 'none',
       };
     });

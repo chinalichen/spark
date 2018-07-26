@@ -7,35 +7,34 @@ import './Painter.css';
 
 export default class Painter extends Component {
   static propTypes = {
-    shape: PropTypes.string,
-    size: PropTypes.number,
-    color: PropTypes.string,
-
     doc: PropTypes.object,
-
     onDocChange: PropTypes.func,
   };
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      shape: 'path',
+      size: 3,
+      color: 'black',
+    };
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
   }
   handleSettingsChange(settings) {
     this.setState(settings);
   }
   render() {
-    const boardProps = {
-      shape: this.props.shape,
-      size: this.props.size,
-      color: this.state.color || this.props.color,
+    const settings = {
+      shape: this.state.shape,
+      size: this.state.size,
+      color: this.state.color,
     }
     return (
       <div className="painter">
         <div className="commandBarContainer">
-          <CommandBar {...this.props} onSettingsChange={this.handleSettingsChange} />
+          <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} />
         </div>
         <div className="boardContainer">
-          <Board doc={this.props.doc} {...boardProps} onDocChange={this.props.onDocChange} />
+          <Board doc={this.props.doc} settings={settings} onDocChange={this.props.onDocChange} />
         </div>
       </div>
     );

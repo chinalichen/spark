@@ -11,14 +11,23 @@ import './CommandBar.css';
 
 export default class CommandBar extends Component {
   static propTypes = {
-    color: PropTypes.string,
-    onSettingsChange: PropTypes.func,
+    settings: PropTypes.object.isRequired,
+    onSettingsChange: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
-
+    this.handleColorChange = this.handleColorChange.bind(this);
+  }
+  handleSettingChange(partialSettings) {
+    if (this.props.onSettingsChange) {
+      this.props.onSettingsChange({ ...this.props.settings, ...partialSettings });
+    }
+  }
+  handleColorChange(color) {
+    this.handleSettingChange({ color });
   }
   render() {
+    const { color } = this.props.settings;
     return (
       <div className="commandBar">
         <Edit />
@@ -31,8 +40,8 @@ export default class CommandBar extends Component {
         <Separator />
         <Size />
         <Separator />
-        <Color color={this.props.color} onColorChange={this.handleColorChange} />
-        <div className="blank"> </div>
+        <Color color={color} onColorChange={this.handleColorChange} />
+        <div className="blank"></div>
       </div>
     );
   }
