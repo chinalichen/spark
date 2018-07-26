@@ -17,6 +17,7 @@ export default class Painter extends Component {
   };
   constructor(props) {
     super(props);
+    this.state = {};
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
   }
   handleSettingsChange(settings) {

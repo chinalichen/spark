@@ -11,11 +11,12 @@ import './CommandBar.css';
 
 export default class CommandBar extends Component {
   static propTypes = {
+    color: PropTypes.string,
     onSettingsChange: PropTypes.func,
   };
   constructor(props) {
     super(props);
-    
+
   }
   render() {
     return (
@@ -30,7 +31,7 @@ export default class CommandBar extends Component {
         <Separator />
         <Size />
         <Separator />
-        <Color handleColorChange={this.handleColorChange} />
+        <Color color={this.props.color} onColorChange={this.handleColorChange} />
         <div className="blank"> </div>
       </div>
     );
