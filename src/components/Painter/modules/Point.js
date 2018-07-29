@@ -15,19 +15,22 @@ export default class Point extends Shpae {
     this.meta = {
       type: Shapes.Point,
       id: this.id,
-      cx, cy, r: size,
+      cx, cy, r: size / 2,
       fill: foreColor,
       stroke: foreColor,
       strokeWidth: 0,
     };
-    this.elem = <circle
-      key={this.id}
-      cx={this.meta.cx}
-      cy={this.meta.cy}
-      r={this.meta.r}
-      stroke={this.meta.stroke}
-      strokeWidth={this.meta.strokeWidth}
-      fill={this.meta.fill} />
+    this.elem = Point.metaToElem(this.id, this.meta);
+  }
+  static metaToElem(id, meta) {
+    return <circle
+      key={id}
+      cx={meta.cx}
+      cy={meta.cy}
+      r={meta.r}
+      stroke={meta.stroke}
+      strokeWidth={meta.strokeWidth}
+      fill={meta.fill} />
   }
   static type() {
     return Shapes.Point;
@@ -57,13 +60,6 @@ export default class Point extends Shpae {
   fromJSON(json) {
     this.meta = json;
     this.id = json.id;
-    this.elem = <circle
-      key={this.id}
-      cx={this.meta.cx}
-      cy={this.meta.cy}
-      r={this.meta.r}
-      stroke={this.meta.stroke}
-      strokeWidth={this.meta.strokeWidth}
-      fill={this.meta.fill} />
+    this.elem = Point.metaToElem(this.id, this.meta);
   }
 }
