@@ -2,10 +2,10 @@ import mogoose, { Schema } from 'mongoose';
 const ObjectId = Schema.ObjectId;
 
 const Shape = new Schema({
-  id: ObjectId,
+  id: String,
   meta: String,
   fileID: String,
-});
+}, { id: false });
 
 const ShapeModel = mogoose.model('shapes', Shape);
 
@@ -15,7 +15,9 @@ export function addShapes(fileID, shapes) {
     shape.id = s.id;
     shape.elem = JSON.stringify(s.elem);
     shape.save((err) => {
-      console.log('save shape error: ', err, s);
+      if (err != null) {
+        console.log('save shape error: ', err, s);
+      }
     });
   });
 }

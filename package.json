@@ -16,7 +16,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "serve": "babel-node --presets env server/main.js",
+    "serve": "babel-node --presets env server/main.js --inspect",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
@@ -27,6 +27,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }
