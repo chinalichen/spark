@@ -14,6 +14,7 @@ export function addShapes(fileID, shapes) {
     const shape = new ShapeModel();
     shape.id = s.id;
     shape.elem = JSON.stringify(s.elem);
+    shape.fileID = fileID;
     shape.save((err) => {
       if (err != null) {
         console.log('save shape error: ', err, s);
