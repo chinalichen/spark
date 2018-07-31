@@ -9,18 +9,19 @@ const Shape = new Schema({
 
 const ShapeModel = mogoose.model('shapes', Shape);
 
-export function addShapes(fileID, shapes) {
-  shapes.forEach(s => {
+export async function addShapes(fileID, shapes) {
+  for (let i = 0; i < shapes.length; i++) {
+    const s = shapes[i];
     const shape = new ShapeModel();
     shape.id = s.id;
     shape.elem = JSON.stringify(s.elem);
     shape.fileID = fileID;
-    shape.save((err) => {
+    await shape.save((err) => {
       if (err != null) {
         console.log('save shape error: ', err, s);
       }
     });
-  });
+  }
 }
 
 
