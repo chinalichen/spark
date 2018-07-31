@@ -2,6 +2,7 @@ import mogoose, { Schema } from 'mongoose';
 
 const Doc = new Schema({
   id: String,
+  name: String,
   createTime: Date,
   createBy: String,
   modifyTime: Date,
@@ -14,6 +15,7 @@ export async function createDoc(doc) {
   const userID = 'user id';
   const newDoc = new DocModel();
   newDoc.id = doc.id;
+  newDoc.name = doc.name;
   newDoc.createTime = new Date();
   newDoc.createBy = userID;
   newDoc.modifyTime = new Date();
@@ -23,6 +25,11 @@ export async function createDoc(doc) {
       console.log('create doc error: ', err, newDoc);
     }
   });
+}
+
+export async function findDoc(docID) {
+  const doc = await DocModel.findOne({ id: docID });
+  return doc;
 }
 
 export default DocModel;

@@ -10,9 +10,13 @@ async function postShapes(ctx) {
     return;
   }
 
-  await addShapes(docID, shapes);
+  await addShapes(ctx.params.docID, shapes);
   ctx.status = 200;
   ctx.body = STATUS_CODES[200];
+}
+
+async function getShapes(ctx) {
+
 }
 
 export default function shapes(router) {
