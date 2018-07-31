@@ -17,5 +17,5 @@ async function getDoc(ctx) {
 
 export default function docs(router) {
   router.get('/api/docs/:docID', getDoc);
-  router.post('/api/docs/', postDoc);
+  router.post('/api/docs', postDoc);
 }

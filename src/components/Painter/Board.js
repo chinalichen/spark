@@ -8,7 +8,7 @@ import { createShape } from './modules/ShapeCreator';
 
 import './Board.css';
 
-export default class Painter extends Component {
+export default class Board extends Component {
   static propTypes = {
     settings: PropTypes.shape({
       shape: PropTypes.string,
