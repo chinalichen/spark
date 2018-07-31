@@ -1,4 +1,4 @@
-import shapes from './Shape';
+import shapes from './shape';
 
 export default function apis(router) {
   shapes(router);
