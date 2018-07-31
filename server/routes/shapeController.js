@@ -1,11 +1,18 @@
-import mongoose from 'mongoose';
+import _ from 'lodash';
 import { addShapes } from '../modules/Shape';
+import { STATUS_CODES } from 'http';
 
-mongoose.connect('mongodb://localhost:27017/spark');
+function postShapes(ctx) {
+  const shapes = ctx.request.body;
+  if (!_.isArray(shapes)) {
+    ctx.status = 400;
+    ctx.body = STATUS_CODES[400];
+    return;
+  }
+  addShapes('', shapes);
+  ctx.status = 200;
+}
 
 export default function shapes(router) {
-  router.post('/api/shape', ctx => {
-    addShapes('', [{ id: 's1', elem: 'hahah', fileID: '1' }]);
-    ctx.status = 200;
-  });
+  router.post('/api/shapes', postShapes);
 }
