@@ -32,4 +32,9 @@ export async function findDoc(docID) {
   return doc;
 }
 
+export async function findDocs() {
+  const docs = await DocModel.find();
+  return docs;
+}
+
 export default DocModel;
