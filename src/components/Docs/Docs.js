@@ -25,7 +25,7 @@ export default class Docs extends Component {
   render() {
     const docs = this.state.docs;
     if (docs.length === 0) {
-      return <div onClick={this.createDoc}>create one</div>;
+      return <div onClick={this.createNewDoc}>create one</div>;
     }
     return (
       <div>
