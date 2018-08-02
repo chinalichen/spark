@@ -20,7 +20,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "serve": "babel-node --inspect --presets env server/main.js --inspect",
+    "serve": "babel-node --inspect --presets env --plugins transform-object-rest-spread server/main.js --inspect",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
@@ -32,7 +32,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-plugin-object-rest-spread": "0.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
   },
   "proxy": {
     "/api": {
