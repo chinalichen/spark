@@ -19,6 +19,7 @@ export default class Board extends Component {
     doc: PropTypes.object,
 
     onDocChange: PropTypes.func,
+    onCreateShapes: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -101,8 +102,9 @@ export default class Board extends Component {
     const shapeTypes = [Point, Path];
     const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
     const shape = new matched(this.pointsList[0], this.state.context);
+    this.props.onCreateShapes([shape]);
     const shapes = this.props.doc.shapes.concat(shape.toJSON());
-    this.props.onDocChange({ ...this.props.doc, shapes });
+    // this.props.onDocChange({ ...this.props.doc, shapes });
     this.pointsList = null;
     this.setState({ currentPaths: [] });
   }

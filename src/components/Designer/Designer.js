@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import Painter from "../Painter";
-import { createShapes } from '../../services/shape';
+import { createShapes, getShapes } from '../../services/shape';
 
 export default class Designer extends Component {
   constructor() {
     super();
     this.state = { doc: { shapes: [] } };
 
-    this.handleDocChange = this.handleDocChange.bind(this);
+    this.handleCreateShapes = this.handleCreateShapes.bind(this);
   }
-  componentWillMount() {
-
+  getDocID() {
+    return this.props.match.params.docID;
   }
-  handleDocChange(doc) {
-    this.setState({ doc });
-    console.log(doc);
+  componentDidMount() {
+    getShapes(this.getDocID()).then(({ data: shapes }) => {
+      this.setState({ doc: { shapes } });
+    });
   }
   handleCreateShapes(shapes) {
     const doc = {
@@ -22,11 +23,11 @@ export default class Designer extends Component {
       shapes: this.state.doc.shapes.concat(shapes),
     };
     this.setState({ doc });
-    createShapes(doc.id, shapes);
+    createShapes(this.getDocID(), shapes);
   }
   render() {
     return (
-      <Painter doc={this.state.doc} onDocChange={this.handleDocChange} onCreateShapes={this.handleCreateShapes} />
+      <Painter doc={this.state.doc} onCreateShapes={this.handleCreateShapes} />
     );
   }
 }

@@ -19,7 +19,7 @@ class App extends Component {
             <Link to="/about">About</Link>
           </div>
           <Route exact path="/" component={Docs} />
-          <Route path="/designer" component={Designer} />
+          <Route path="/designer/:docID" component={Designer} />
           <Route path="/about" component={About} />
         </div>
       </Router>

@@ -8,7 +8,8 @@ import './Painter.css';
 export default class Painter extends Component {
   static propTypes = {
     doc: PropTypes.object,
-    onDocChange: PropTypes.func,
+    // onDocChange: PropTypes.func,
+    onCreateShapes: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -34,7 +35,12 @@ export default class Painter extends Component {
           <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} />
         </div>
         <div className="boardContainer">
-          <Board doc={this.props.doc} settings={settings} onDocChange={this.props.onDocChange} />
+          <Board
+            doc={this.props.doc}
+            settings={settings}
+            onDocChange={this.props.onDocChange}
+            onCreateShapes={this.props.onCreateShapes}
+          />
         </div>
       </div>
     );
