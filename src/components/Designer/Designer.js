@@ -19,7 +19,6 @@ export default class Designer extends Component {
   }
   handleCreateShapes(shapes) {
     const doc = {
-      ...this.state.doc,
       shapes: this.state.doc.shapes.concat(shapes),
     };
     this.setState({ doc });

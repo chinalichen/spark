@@ -102,7 +102,7 @@ export default class Board extends Component {
     const shapeTypes = [Point, Path];
     const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
     const shape = new matched(this.pointsList[0], this.state.context);
-    this.props.onCreateShapes([shape]);
+    this.props.onCreateShapes([shape.meta]);
     const shapes = this.props.doc.shapes.concat(shape.toJSON());
     // this.props.onDocChange({ ...this.props.doc, shapes });
     this.pointsList = null;
