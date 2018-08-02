@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Doc extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Doc extends Component {
     }
     return (
       <div>
-        <div>{doc.name}</div>
+        <div><Link to={`/designer/${doc.id}`}>{doc.id}</Link></div>
         <div>create at: {doc.createTime}</div>
         <div>modify at: {doc.modifyTime}</div>
       </div>
