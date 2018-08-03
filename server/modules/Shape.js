@@ -28,5 +28,3 @@ export async function findShapes(docID) {
   const shapes = await ShapeModel.find({ docID });
   return shapes.map(s => ({ id: s.id, docID: s.docID, ...JSON.parse(s.settings) }));
 }
-
-export default ShapeModel;

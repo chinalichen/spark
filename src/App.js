@@ -4,6 +4,7 @@ import Docs from './components/Docs/Docs';
 import About from './components/About/About';
 import Designer from './components/Designer/Designer';
 
+import 'antd/dist/antd.css';
 import './App.css';
 
 class App extends Component {
@@ -13,8 +14,6 @@ class App extends Component {
         <div className="App">
           <div className="header">
             <Link to="/">Home</Link>
-            <span> | </span>
-            <Link to="/designer">Designer</Link>
             <span> | </span>
             <Link to="/about">About</Link>
           </div>

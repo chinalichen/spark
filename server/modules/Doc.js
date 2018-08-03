@@ -37,4 +37,7 @@ export async function findDocs() {
   return docs;
 }
 
-export default DocModel;
+export async function deleteDoc(docID) {
+  const doc = await DocModel.deleteOne({ id: docID });
+  return doc;
+}
