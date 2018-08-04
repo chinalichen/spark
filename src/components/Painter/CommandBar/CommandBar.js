@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Edit from './Edit';
 import Image from './Image';
-import Tools from './Edit';
+import Tools from './Tools';
 import Shapes from './Shapes';
 import Size from './Size';
 import Color from './Color';
