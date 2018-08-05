@@ -7,13 +7,16 @@ export default class Size extends Component {
     size: PropTypes.number,
     onSizeChange: PropTypes.func,
   };
+  handleSizeChange(size) {
+    this.props.onSizeChange(size);
+  }
   getSizeMenu() {
     return (
       <Menu>
-        <Menu.Item>2</Menu.Item>
-        <Menu.Item>4</Menu.Item>
-        <Menu.Item>6</Menu.Item>
-        <Menu.Item>8</Menu.Item>
+        <Menu.Item onClick={this.handleSizeChange.bind(this, 2)}>2</Menu.Item>
+        <Menu.Item onClick={this.handleSizeChange.bind(this, 4)}>4</Menu.Item>
+        <Menu.Item onClick={this.handleSizeChange.bind(this, 6)}>6</Menu.Item>
+        <Menu.Item onClick={this.handleSizeChange.bind(this, 8)}>8</Menu.Item>
       </Menu>
     );
   }

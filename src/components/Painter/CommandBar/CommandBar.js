@@ -16,6 +16,8 @@ export default class CommandBar extends Component {
   };
   constructor(props) {
     super(props);
+    this.handleShapeChange = this.handleShapeChange.bind(this);
+    this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
   }
   handleSettingChange(partialSettings) {
@@ -23,11 +25,17 @@ export default class CommandBar extends Component {
       this.props.onSettingsChange({ ...this.props.settings, ...partialSettings });
     }
   }
+  handleShapeChange(shape) {
+    this.handleSettingChange({ shape });
+  }
+  handleSizeChange(size) {
+    this.handleSettingChange({ size })
+  }
   handleColorChange(color) {
     this.handleSettingChange({ color });
   }
   render() {
-    const { color } = this.props.settings;
+    const { color, size, shape } = this.props.settings;
     return (
       <div className="commandBar">
         <Edit />
@@ -36,9 +44,9 @@ export default class CommandBar extends Component {
         <Separator />
         <Tools />
         <Separator />
-        <Shapes />
+        <Shapes shape={shape} onShapeChange={this.handleShapeChange} />
         <Separator />
-        <Size />
+        <Size size={size} onSizeChange={this.handleSizeChange} />
         <Separator />
         <Color color={color} onColorChange={this.handleColorChange} />
         <div className="blank"></div>

@@ -15,7 +15,7 @@ export default class Painter extends Component {
     super(props);
     this.state = {
       shape: 'path',
-      size: 3,
+      size: 2,
       color: 'black',
     };
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
