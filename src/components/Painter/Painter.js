@@ -9,26 +9,26 @@ export default class Painter extends Component {
   static propTypes = {
     doc: PropTypes.object,
     // onDocChange: PropTypes.func,
+    onSettingsChange: PropTypes.func,
     onCreateShapes: PropTypes.func,
   };
   constructor(props) {
     super(props);
-    this.state = {
-      shape: 'path',
-      size: 2,
-      color: 'black',
-    };
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
   }
+  getSettings() {
+    if (this.props.doc && this.props.doc.settings) {
+      return this.props.doc.settings;
+    }
+    return { shape: 'path', size: 2, color: 'black' };
+  }
   handleSettingsChange(settings) {
-    this.setState(settings);
+    if (this.props.onSettingsChange) {
+      this.props.onSettingsChange(settings);
+    }
   }
   render() {
-    const settings = {
-      shape: this.state.shape,
-      size: this.state.size,
-      color: this.state.color,
-    }
+    const settings = this.getSettings();
     return (
       <div className="painter">
         <div className="commandBarContainer">

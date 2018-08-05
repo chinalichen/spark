@@ -67,6 +67,7 @@ export default class Board extends Component {
           key: i,
           stroke: this.props.settings.color,
           strokeWidth: this.props.settings.size,
+          strokeLinecap: 'round',
           fill: 'none',
         }))
       });

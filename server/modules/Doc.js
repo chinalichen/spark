@@ -1,8 +1,15 @@
 import mogoose, { Schema } from 'mongoose';
 
+const DocSettings = new Schema({
+  color: String,
+  size: Number,
+  shape: String,
+});
+
 const Doc = new Schema({
   id: String,
   name: String,
+  settings: DocSettings,
   createTime: Date,
   createBy: String,
   modifyTime: Date,
@@ -20,11 +27,13 @@ export async function createDoc(doc) {
   newDoc.createBy = userID;
   newDoc.modifyTime = new Date();
   newDoc.modifyBy = userID;
-  await newDoc.save((err) => {
-    if (err != null) {
-      console.log('create doc error: ', err, newDoc);
-    }
-  });
+  const createdDoc = await newDoc.save();
+  return createdDoc;
+}
+
+export async function updateDoc(doc) {
+  const udpatedDoc = await DocModel.update({ id: doc.id }, doc);
+  return udpatedDoc;
 }
 
 export async function findDoc(docID) {

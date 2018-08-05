@@ -8,6 +8,14 @@ async function postDoc(ctx) {
   ctx.body = STATUS_CODES[200];
 }
 
+async function putDoc(ctx) {
+  const doc = ctx.request.body;
+  const docID = ctx.params.docID;
+  const updatedDoc = await Doc.updateDoc({ ...doc, docID });
+  ctx.status = 200;
+  ctx.body = updatedDoc;
+}
+
 async function getDoc(ctx) {
   const docID = ctx.params.docID;
   const doc = await Doc.findDoc(docID);
@@ -32,5 +40,6 @@ export default function docs(router) {
   router.get('/api/docs', getDocs);
   router.get('/api/docs/:docID', getDoc);
   router.post('/api/docs', postDoc);
+  router.put('/api/docs/:docID', putDoc);
   router.delete('/api/docs/:docID', deleteDoc);
 }
