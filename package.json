@@ -42,6 +42,10 @@
     "babel-preset-stage-0": "^6.24.1"
   },
   "proxy": {
+    "/api/ws": {
+      "target": "ws://localhost:3001",
+      "ws": true
+    },
     "/api": {
       "target": "http://localhost:3001",
       "ws": false

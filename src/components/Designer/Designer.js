@@ -20,6 +20,10 @@ export default class Designer extends Component {
     Promise.all([d, s]).then(([{ data: doc }, { data: shapes }]) => {
       this.setState({ doc: { ...doc, shapes } });
     });
+    this.ws = new WebSocket('ws://localhost:3000/api/ws', 'ws');
+    this.ws.addEventListener('message', function (data) {
+      console.log('websocket -------', data);
+    });
   }
   handleCreateShapes(shapes) {
     const doc = {
