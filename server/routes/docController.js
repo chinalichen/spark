@@ -37,9 +37,9 @@ async function deleteDoc(ctx) {
 }
 
 export default function docs(router) {
-  router.get('/api/docs', getDocs);
-  router.get('/api/docs/:docID', getDoc);
-  router.post('/api/docs', postDoc);
-  router.put('/api/docs/:docID', putDoc);
-  router.delete('/api/docs/:docID', deleteDoc);
+  return router.get('/api/docs', getDocs)
+    .get('/api/docs/:docID', getDoc)
+    .post('/api/docs', postDoc)
+    .put('/api/docs/:docID', putDoc)
+    .delete('/api/docs/:docID', deleteDoc);
 }

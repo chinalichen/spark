@@ -1,7 +1,12 @@
 import docs from './docController';
 import shapes from './shapeController';
+import notifications from './notification';
 
-export default function apis(router) {
+export function apis(router) {
   docs(router);
   shapes(router);
+}
+
+export function websockets(router) {
+  return notifications(router);
 }

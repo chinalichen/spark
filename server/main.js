@@ -2,18 +2,21 @@ import mongoose from 'mongoose';
 import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
-import routes from './routes';
+import websockify from 'koa-websocket';
+import { apis, websockets } from './routes';
 
 mongoose.connect('mongodb://localhost:27017/spark');
 
-const app = new Koa();
+const app = websockify(new Koa());
 app.use(bodyParser());
 
 const router = new Router();
-routes(router);
+apis(router);
 app
   .use(router.routes())
   .use(router.allowedMethods());
+
+app.ws.use(websockets(router).routes());
 
 app.listen(3001);
 console.log('listening on port 3001');

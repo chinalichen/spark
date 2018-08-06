@@ -23,6 +23,7 @@ async function getShapes(ctx) {
 }
 
 export default function shapes(router) {
-  router.get('/api/docs/:docID/shapes', getShapes);
-  router.post('/api/docs/:docID/shapes', postShapes);
+  return router
+    .get('/api/docs/:docID/shapes', getShapes)
+    .post('/api/docs/:docID/shapes', postShapes);
 }
