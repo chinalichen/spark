@@ -4,11 +4,13 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import websockify from 'koa-websocket';
 import { apis, websockets } from './routes';
+import { auth } from './middlewares/auth';
 
 mongoose.connect('mongodb://localhost:27017/spark');
 
 const app = websockify(new Koa());
 app.use(bodyParser());
+app.use(auth());
 
 const router = new Router();
 apis(router);
