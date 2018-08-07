@@ -1,5 +1,7 @@
 import mogoose, { Schema } from 'mongoose';
 
+const docsTrackings = {};
+
 const DocSettings = new Schema({
   color: String,
   size: Number,
@@ -49,4 +51,19 @@ export async function findDocs() {
 export async function deleteDoc(docID) {
   const doc = await DocModel.deleteOne({ id: docID });
   return doc;
+}
+
+export async function trackDoc(userID, docID) {
+  const trackings = docsTrackings[docID] || {};
+  trackings[userID] = true;
+  return true;
+}
+
+export async function untrackDoc(userID, docID) {
+  const trackings = docsTrackings[docID];
+  if (!trackings) {
+    return true;
+  }
+  delete trackings[userID];
+  return true;
 }

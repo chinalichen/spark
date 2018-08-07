@@ -36,10 +36,24 @@ async function deleteDoc(ctx) {
   ctx.body = doc;
 }
 
+function trackDoc(ctx) {
+  Doc.trackDoc(ctx.userID, ctx.params.docID);
+  ctx.status = 200;
+  ctx.body = STATUS_CODES[200];
+}
+
+function untrackDoc(ctx) {
+  Doc.untrackDoc(ctx.userID, ctx.params.docID);
+  ctx.status = 200;
+  ctx.body = STATUS_CODES[200];
+}
+
 export default function docs(router) {
   return router.get('/api/docs', getDocs)
     .get('/api/docs/:docID', getDoc)
     .post('/api/docs', postDoc)
     .put('/api/docs/:docID', putDoc)
-    .delete('/api/docs/:docID', deleteDoc);
+    .delete('/api/docs/:docID', deleteDoc)
+    .post('/api/docs/:docID/tracking', trackDoc)
+    .delete('/api/docs/:docID/tracking', untrackDoc);
 }
