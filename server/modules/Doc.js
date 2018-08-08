@@ -21,7 +21,6 @@ const Doc = new Schema({
 const DocModel = mogoose.model('docs', Doc);
 
 export async function createDoc(doc) {
-  const userID = 'user id';
   const newDoc = new DocModel();
   newDoc.id = doc.id;
   newDoc.name = doc.name;
@@ -43,8 +42,8 @@ export async function findDoc(docID) {
   return doc;
 }
 
-export async function findDocs() {
-  const docs = await DocModel.find();
+export async function findDocs(userID) {
+  const docs = await DocModel.find({ createBy: userID });
   return docs;
 }
 

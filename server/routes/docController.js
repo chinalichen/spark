@@ -3,6 +3,7 @@ import { STATUS_CODES } from 'http';
 
 async function postDoc(ctx) {
   const doc = ctx.request.body;
+  doc.userID = ctx.userID;
   await Doc.createDoc(doc);
   ctx.status = 200;
   ctx.body = STATUS_CODES[200];
@@ -11,6 +12,7 @@ async function postDoc(ctx) {
 async function putDoc(ctx) {
   const doc = ctx.request.body;
   const docID = ctx.params.docID;
+  doc.userID = ctx.userID;
   const updatedDoc = await Doc.updateDoc({ ...doc, docID });
   ctx.status = 200;
   ctx.body = updatedDoc;
@@ -24,7 +26,8 @@ async function getDoc(ctx) {
 }
 
 async function getDocs(ctx) {
-  const docs = await Doc.findDocs();
+  const userID = ctx.userID;
+  const docs = await Doc.findDocs(userID);
   ctx.status = 200;
   ctx.body = docs;
 }
