@@ -25,9 +25,9 @@ export async function createDoc(doc) {
   newDoc.id = doc.id;
   newDoc.name = doc.name;
   newDoc.createTime = new Date();
-  newDoc.createBy = userID;
+  newDoc.createBy = doc.userID;
   newDoc.modifyTime = new Date();
-  newDoc.modifyBy = userID;
+  newDoc.modifyBy = doc.userID;
   const createdDoc = await newDoc.save();
   return createdDoc;
 }

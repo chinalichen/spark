@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Painter from "../Painter";
 import { createShapes, getShapes } from '../../services/shape';
-import { updateDoc, getDoc } from '../../services/doc';
+import { updateDoc, getDoc, trackDoc, untrackDoc } from '../../services/doc';
 
 export default class Designer extends Component {
   constructor() {
@@ -15,15 +15,35 @@ export default class Designer extends Component {
     return this.props.match.params.docID;
   }
   componentDidMount() {
-    const d = getDoc(this.getDocID());
-    const s = getShapes(this.getDocID());
+    const self = this;
+    const docID = this.getDocID();
+    const d = getDoc(docID);
+    const s = getShapes(docID);
     Promise.all([d, s]).then(([{ data: doc }, { data: shapes }]) => {
       this.setState({ doc: { ...doc, shapes } });
     });
+    trackDoc(docID);
     this.ws = new WebSocket('ws://localhost:3000/api/ws', 'ws');
-    this.ws.addEventListener('message', function (data) {
-      console.log('websocket -------', data);
+    this.ws.addEventListener('message', function (evt) {
+      const json = evt.data;
+      if (!json) {
+        return;
+      }
+      const notification = JSON.parse(json);
+      if (notification.type === 'createShapes' && (notification.docID === docID)) {
+        const shapes = notification.shapes;
+        if (shapes && shapes.length > 0) {
+          const doc = {
+            ...self.state.doc,
+            shapes: self.state.doc.shapes.concat(shapes),
+          };
+          self.setState({ doc });
+        }
+      }
     });
+  }
+  componentWillUnmount() {
+    untrackDoc(this.getDocID());
   }
   handleCreateShapes(shapes) {
     const doc = {

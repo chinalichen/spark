@@ -1,3 +1,5 @@
+import { generateID } from "../../src/utils/id";
+
 export class Client {
   constructor(userID, conn) {
     this.userID = userID;
@@ -11,7 +13,7 @@ class ClientManager {
     this.clients = {};
   }
   addClient(userID, client) {
-    this.clients[client.userID] = client;
+    this.clients[userID] = client;
   }
   deleteClient(userID) {
     delete this.clients[userID];
@@ -19,12 +21,18 @@ class ClientManager {
   getClient(userID) {
     return this.clients[userID];
   }
-  send() {
-    ctx.websocket.on('message', function (message) {
-      ctx.websocket.send('HELLOOO');
-      console.log('onmessage', message);
-    });
-    ctx.websocket.send('beacon', count++);
+  send(notification, excludes = {}) {
+    // ctx.websocket.on('message', function (message) {
+    //   ctx.websocket.send('HELLOOO');
+    //   console.log('onmessage', message);
+    // });
+    for (let userID in this.clients) {
+      if (excludes[userID]) {
+        continue;
+      }
+      const client = this.clients[userID];
+      client.conn.send(JSON.stringify(notification));
+    }
   }
 }
 

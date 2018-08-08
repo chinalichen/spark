@@ -3,9 +3,10 @@ import { clientManager, Client } from "../modules/Client";
 
 export default function notifications(router) {
   return router.all('/api/ws', function (ctx) {
+    const userID = ctx.cookies.get('userID')
     ctx.websocket.on('close', function () {
-      clientManager.deleteClient(ctx.userID);
+      clientManager.deleteClient(userID);
     });
-    clientManager.addClient(new Client(ctx.userID, ctx.websocket));
+    clientManager.addClient(userID, new Client(userID, ctx.websocket));
   });
 }

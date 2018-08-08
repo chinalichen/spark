@@ -19,3 +19,11 @@ export function getDoc(docID) {
 export function getDocs() {
   return axios.get('/api/docs');
 }
+
+export function trackDoc(docID) {
+  return axios.post(`/api/docs/${docID}/tracking`);
+}
+
+export function untrackDoc(docID) {
+  return axios.delete(`/api/docs/${docID}/tracking`);
+}
