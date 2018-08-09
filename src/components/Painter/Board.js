@@ -62,7 +62,7 @@ export default class Board extends Component {
   updateCurrentPath() {
     if (this.hasPoints()) {
       this.setState({
-        currentPaths: this.pointsList.map((ps, i) => ({
+        currentPaths: this.pointsList.filter(ps => ps && ps.length > 0).map((ps, i) => ({
           d: solve(ps),
           key: i,
           stroke: this.props.settings.color,
@@ -78,7 +78,7 @@ export default class Board extends Component {
     this.updateCurrentPath();
   }
   handleTouchStart(evt) {
-    Array.from(evt.changedTouches).map(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
+    Array.from(evt.changedTouches).filter(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
     this.updateCurrentPath();
   }
   handleDrawMove(evt) {
@@ -92,7 +92,7 @@ export default class Board extends Component {
     if (!this.hasPoints()) {
       return;
     }
-    Array.from(evt.changedTouches).map(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
+    Array.from(evt.changedTouches).filter(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
     this.updateCurrentPath();
   }
   handleDrawEnd(evt) {
@@ -104,7 +104,7 @@ export default class Board extends Component {
     const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
     const shape = new matched(this.pointsList[0], this.state.context);
     this.props.onCreateShapes([shape.meta]);
-    const shapes = this.props.doc.shapes.concat(shape.toJSON());
+    // const shapes = this.props.doc.shapes.concat(shape.toJSON());
     // this.props.onDocChange({ ...this.props.doc, shapes });
     this.pointsList = null;
     this.setState({ currentPaths: [] });
@@ -113,22 +113,18 @@ export default class Board extends Component {
     if (!this.hasPoints()) {
       return;
     }
-    const ds = Array.from(evt.changedTouches).map((te) => {
+    const shapes = Array.from(evt.changedTouches).map((te) => {
       if (hasXY(te)) {
         this.updatePoints(te.identifier, te.clientX, te.clientY);
       }
+      const shapeTypes = [Point, Path];
       const points = this.pointsList[te.identifier];
+      const [matched] = shapeTypes.filter(s => s.test(points));
+      const shape = new matched(points, this.state.context);
       this.pointsList[te.identifier] = null;
-      return {
-        key: (this.count += 1),
-        d: solve(points, 1),
-        stroke: this.props.settings.color,
-        strokeWidth: this.props.settings.size,
-        fill: 'none',
-      };
+      return shape;
     });
-    const paths = this.state.paths.concat(ds);
-    this.setState({ paths });
+    this.props.onCreateShapes(shapes.map(s => s.meta));
   }
   componentDidMount() {
     this.canvasRect = this.canvasElem.getBoundingClientRect();
