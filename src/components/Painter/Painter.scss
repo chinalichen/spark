@@ -1,7 +1,9 @@
 .painter {
   height: 100%;
-  .commandBarContainer {
+  .topBar {
     height: 3rem;
+    display: flex;
+    border-bottom: 1px solid #dedede;
   }
   .boardContainer {
     height: calc(100% - 3rem);

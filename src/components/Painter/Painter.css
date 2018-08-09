@@ -1,6 +1,8 @@
 .painter {
   height: 100%; }
-  .painter .commandBarContainer {
-    height: 3rem; }
+  .painter .topBar {
+    height: 3rem;
+    display: flex;
+    border-bottom: 1px solid #dedede; }
   .painter .boardContainer {
     height: calc(100% - 3rem); }

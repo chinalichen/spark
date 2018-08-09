@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import NavigationBar from './NavigationBar';
 import CommandBar from './CommandBar';
 import Board from './Board';
 
@@ -31,7 +32,8 @@ export default class Painter extends Component {
     const settings = this.getSettings();
     return (
       <div className="painter">
-        <div className="commandBarContainer">
+        <div className="topBar">
+          <NavigationBar />
           <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} />
         </div>
         <div className="boardContainer">

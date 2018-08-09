@@ -1,6 +1,5 @@
 .commandBar {
-  height: 3rem;
-  border-bottom: 1px #dedede solid;
+  height: 100%;
   display: flex; }
   .commandBar .blank {
     flex: auto; }
