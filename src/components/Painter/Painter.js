@@ -34,6 +34,9 @@ export default class Painter extends Component {
       <div className="painter">
         <div className="topBar">
           <NavigationBar />
+          <div className="title">
+            <b>{this.props.doc.name}</b>
+          </div>
           <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} />
         </div>
         <div className="boardContainer">

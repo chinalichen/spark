@@ -3,6 +3,10 @@
   .painter .topBar {
     height: 3rem;
     display: flex;
-    border-bottom: 1px solid #dedede; }
+    border-bottom: 1px solid #dedede;
+    justify-content: space-between; }
+    .painter .topBar .title {
+      display: flex;
+      align-items: center; }
   .painter .boardContainer {
     height: calc(100% - 3rem); }

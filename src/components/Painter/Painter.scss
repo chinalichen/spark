@@ -4,6 +4,11 @@
     height: 3rem;
     display: flex;
     border-bottom: 1px solid #dedede;
+    justify-content: space-between;
+    .title {
+      display: flex;
+      align-items: center;
+    }
   }
   .boardContainer {
     height: calc(100% - 3rem);

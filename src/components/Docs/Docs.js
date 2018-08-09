@@ -62,7 +62,7 @@ export default class Docs extends Component {
           <Divider type="vertical" />
           <Dropdown overlay={this.getDocMoreActions(doc)}>
             <a href="javascript:;" className="ant-dropdown-link">
-              More actions <Icon type="down" />
+              <Icon type="ellipsis" />
             </a>
           </Dropdown>
         </span>

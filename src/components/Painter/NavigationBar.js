@@ -11,6 +11,7 @@ export default class NavigationBar extends Component {
           <Link to="/">
             <Icon type="home" />
           </Link>
+          <div className="split"></div>
         </div>
       </div>
     );

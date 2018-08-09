@@ -1,7 +1,9 @@
 .goHomeBtn {
   display: flex;
-  font-size: 1.2rem;
-  align-items: center;
-  justify-content: center;
   height: 3rem;
-  width: 3rem; }
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem; }
+  .goHomeBtn .split {
+    border-left: 1px solid #dedede;
+    margin-left: 1rem;
+    height: 100%; }
