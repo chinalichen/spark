@@ -21,7 +21,7 @@ export default class Painter extends Component {
     if (this.props.doc && this.props.doc.settings) {
       return this.props.doc.settings;
     }
-    return { shape: 'path', size: 2, color: 'black' };
+    return { shape: 'path', size: 2, color: 'black', backColor: 'white' };
   }
   handleSettingsChange(settings) {
     if (this.props.onSettingsChange) {

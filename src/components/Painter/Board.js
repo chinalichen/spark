@@ -8,6 +8,15 @@ import { createShape } from './modules/ShapeCreator';
 
 import './Board.css';
 
+function updateContext(props) {
+  const ctx = new Context();
+  ctx.foreColor = props.settings.color;
+  ctx.backColor = props.settings.backColor;
+  ctx.size = props.settings.size;
+  ctx.shape = props.settings.shape;
+  return ctx;
+}
+
 export default class Board extends Component {
   static propTypes = {
     settings: PropTypes.shape({
@@ -24,11 +33,7 @@ export default class Board extends Component {
   constructor(props) {
     super(props);
 
-    const ctx = new Context();
-    ctx.foreColor = props.settings.color;
-    ctx.size = props.settings.size;
-    ctx.shape = props.settings.shape;
-
+    const ctx = updateContext(props);
     this.count = props.doc.shapes.length;
     this.points = null;
     this.state = { paths: [], currentPaths: [], context: ctx };
@@ -41,10 +46,7 @@ export default class Board extends Component {
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    const ctx = new Context();
-    ctx.foreColor = nextProps.settings.color;
-    ctx.size = nextProps.settings.size;
-    ctx.shape = nextProps.settings.shape;
+    const ctx = updateContext(nextProps);
     this.setState({ context: ctx });
   }
   hasPoints() {
