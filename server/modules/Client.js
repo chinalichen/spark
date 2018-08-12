@@ -22,10 +22,6 @@ class ClientManager {
     return this.clients[userID];
   }
   send(notification, excludes = {}) {
-    // ctx.websocket.on('message', function (message) {
-    //   ctx.websocket.send('HELLOOO');
-    //   console.log('onmessage', message);
-    // });
     for (let userID in this.clients) {
       if (excludes[userID]) {
         continue;
