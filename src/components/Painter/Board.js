@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { hasXY, solve } from './utils';
 import Point from './modules/Point';
 import Path from './modules/Path';
+import Eraser from './modules/Eraser';
 import Context from './modules/Context';
 import { createShape } from './modules/ShapeCreator';
 
@@ -67,7 +68,7 @@ export default class Board extends Component {
         currentPaths: this.pointsList.filter(ps => ps && ps.length > 0).map((ps, i) => ({
           d: solve(ps),
           key: i,
-          stroke: this.props.settings.color,
+          stroke: this.state.context.shape === 'Eraser' ? (this.props.settings.backColor || 'white') : this.props.settings.color,
           strokeWidth: this.props.settings.size,
           strokeLinecap: 'round',
           fill: 'none',
@@ -102,7 +103,7 @@ export default class Board extends Component {
       return;
     }
     this.updatePoints(0, evt.clientX, evt.clientY);
-    const shapeTypes = [Point, Path];
+    const shapeTypes = this.state.context.shape === 'Eraser' ? [Eraser] : [Point, Path];
     const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
     const shape = new matched(this.pointsList[0], this.state.context);
     this.props.onCreateShapes([shape.meta]);

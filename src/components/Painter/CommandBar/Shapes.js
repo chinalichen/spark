@@ -7,11 +7,16 @@ export default class Shapes extends Component {
     shape: PropTypes.string,
     onShapeChange: PropTypes.func,
   };
+  handleShapeClick(type) {
+    if (this.props.onShapeChange) {
+      this.props.onShapeChange(type);
+    }
+  }
   getMenu() {
     return (
       <Menu>
-        <Menu.Item>Pencil</Menu.Item>
-        <Menu.Item>Eraser</Menu.Item>
+        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Pencil')}>Pencil</Menu.Item>
+        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Eraser')}>Eraser</Menu.Item>
       </Menu>
     );
   }

@@ -4,4 +4,5 @@ export const Shapes = {
     Point: 2,
     Circle: 3,
     Rect: 4,
+    Eraser: 5,
 };
