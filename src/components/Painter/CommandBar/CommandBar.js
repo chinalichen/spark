@@ -39,10 +39,10 @@ export default class CommandBar extends Component {
     return (
       <div className="commandBar">
         <Edit />
-        <Separator />
+        {/* <Separator />
         <Image />
         <Separator />
-        <Tools />
+        <Tools /> */}
         <Separator />
         <Shapes shape={shape} onShapeChange={this.handleShapeChange} />
         <Separator />

@@ -23,7 +23,7 @@ export default class Color extends Component {
       <div>
         <Popover placement="bottomRight" title="Fore color" content={<CompactPicker color={color} onChangeComplete={this.handleColorChange} />} trigger="click">
           <div>
-            color
+            Color
             <div style={{ width: '1.5rem', height: '1rem', backgroundColor: color }}></div>
           </div>
         </Popover>

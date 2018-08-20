@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
 
 export default class Shapes extends Component {
@@ -15,18 +15,26 @@ export default class Shapes extends Component {
   getMenu() {
     return (
       <Menu>
-        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Pencil')}>Pencil</Menu.Item>
-        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Eraser')}>Eraser</Menu.Item>
+        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Pencil')}>
+          <Icon type="edit" /> Pencil
+        </Menu.Item>
+        <Menu.Item onClick={this.handleShapeClick.bind(this, 'Eraser')}>
+          <Icon type="laptop" /> Eraser
+        </Menu.Item>
       </Menu>
     );
   }
   render() {
+    const shape = (this.props.shape || 'Pencil') === 'Pencil'
+      ? <Icon type="edit" />
+      : <Icon type="laptop" />;
+
     return (
       <div className="section">
-        Shapes
+        Shape
         <div>
           <Dropdown overlay={this.getMenu()}>
-            <a>{this.props.shape || 'Pencil'}</a>
+            <a>{shape}</a>
           </Dropdown>
         </div>
       </div>
