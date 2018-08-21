@@ -103,12 +103,11 @@ export default class Board extends Component {
       return;
     }
     this.updatePoints(0, evt.clientX, evt.clientY);
-    const shapeTypes = this.state.context.shape === 'Eraser' ? [Eraser] : [Point, Path];
-    const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
-    const shape = new matched(this.pointsList[0], this.state.context);
-    this.props.onCreateShapes([shape.meta]);
-    // const shapes = this.props.doc.shapes.concat(shape.toJSON());
-    // this.props.onDocChange({ ...this.props.doc, shapes });
+    // const shapeTypes = this.state.context.shape === 'Eraser' ? [Eraser] : [Point, Path];
+    // const [matched] = shapeTypes.filter(s => s.test(this.pointsList[0]));
+    // const shape = new matched(this.pointsList[0], this.state.context);
+    const metas = this.getShapes([0]);
+    this.props.onCreateShapes(metas);
     this.pointsList = null;
     this.setState({ currentPaths: [] });
   }
@@ -116,18 +115,36 @@ export default class Board extends Component {
     if (!this.hasPoints()) {
       return;
     }
-    const shapes = Array.from(evt.changedTouches).map((te) => {
+    const indices = Array.from(evt.changedTouches).map(te => {
       if (hasXY(te)) {
         this.updatePoints(te.identifier, te.clientX, te.clientY);
       }
-      const shapeTypes = [Point, Path];
-      const points = this.pointsList[te.identifier];
-      const [matched] = shapeTypes.filter(s => s.test(points));
-      const shape = new matched(points, this.state.context);
-      this.pointsList[te.identifier] = null;
-      return shape;
+      return te.identifier;
     });
-    this.props.onCreateShapes(shapes.map(s => s.meta));
+    const metas = this.getShapes(indices);
+    this.props.onCreateShapes(metas);
+    indices.forEach(i => (this.pointsList[i] = null));
+    this.setState({ currentPaths: this.state.currentPaths.filter((p, i) => !indices.includes(i)) });
+    // const shapes = Array.from(evt.changedTouches).map((te) => {
+    //   if (hasXY(te)) {
+    //     this.updatePoints(te.identifier, te.clientX, te.clientY);
+    //   }
+    //   const shapeTypes = [Point, Path];
+    //   const points = this.pointsList[te.identifier];
+    //   const [matched] = shapeTypes.filter(s => s.test(points));
+    //   const shape = new matched(points, this.state.context);
+    //   this.pointsList[te.identifier] = null;
+    //   return shape;
+    // });
+    // this.props.onCreateShapes(shapes.map(s => s.meta));
+  }
+  getShapes(indices) {
+    const shapeTypes = this.state.context.shape === 'Eraser' ? [Eraser] : [Point, Path];
+    const completePointsList = indices.map(i => this.pointsList[i]);
+    const matchedTypes = completePointsList.map(points => shapeTypes.find(s => s.test(points)));
+    const shapes = matchedTypes.map((t, i) => new t(completePointsList[i], this.state.context));
+    const metas = shapes.map(s => s.meta);
+    return metas;
   }
   componentDidMount() {
     this.canvasRect = this.canvasElem.getBoundingClientRect();
