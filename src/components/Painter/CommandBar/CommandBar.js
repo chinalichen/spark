@@ -31,11 +31,11 @@ export default class CommandBar extends Component {
   handleSizeChange(size) {
     this.handleSettingChange({ size })
   }
-  handleColorChange(color) {
-    this.handleSettingChange({ color });
+  handleColorChange({ foreColor, backColor }) {
+    this.handleSettingChange({ foreColor, backColor });
   }
   render() {
-    const { color, size, shape } = this.props.settings;
+    const { foreColor, backColor, size, shape } = this.props.settings;
     return (
       <div className="commandBar">
         <Edit />
@@ -48,7 +48,7 @@ export default class CommandBar extends Component {
         <Separator />
         <Size size={size} onSizeChange={this.handleSizeChange} />
         <Separator />
-        <Color color={color} onColorChange={this.handleColorChange} />
+        <Color foreColor={foreColor} backColor={backColor} onColorChange={this.handleColorChange} />
         <div className="blank"></div>
       </div>
     );

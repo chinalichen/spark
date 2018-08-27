@@ -3,7 +3,8 @@ import mogoose, { Schema } from 'mongoose';
 const docsTrackings = {};
 
 const DocSettings = new Schema({
-  color: String,
+  backColor: String,
+  foreColor: String,
   size: Number,
   shape: String,
 });

@@ -11,7 +11,7 @@ import './Board.css';
 
 function updateContext(props) {
   const ctx = new Context();
-  ctx.foreColor = props.settings.color;
+  ctx.foreColor = props.settings.foreColor;
   ctx.backColor = props.settings.backColor;
   ctx.size = props.settings.size;
   ctx.shape = props.settings.shape;
@@ -68,7 +68,7 @@ export default class Board extends Component {
         currentPaths: this.pointsList.filter(ps => ps && ps.length > 0).map((ps, i) => ({
           d: solve(ps),
           key: i,
-          stroke: this.state.context.shape === 'Eraser' ? (this.props.settings.backColor || 'white') : this.props.settings.color,
+          stroke: this.state.context.shape === 'Eraser' ? (this.props.settings.backColor || 'white') : this.props.settings.foreColor,
           strokeWidth: this.props.settings.size,
           strokeLinecap: 'round',
           fill: 'none',
