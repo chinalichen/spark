@@ -1,16 +1,23 @@
 .commandBar {
   height: 100%;
-  display: flex; }
+  display: flex;
+  padding: 0 .5rem; }
   .commandBar .blank {
     flex: auto; }
   .commandBar .section {
     height: 100%;
     flex: 0 1 auto; }
-  .commandBar .separator {
+  .commandBar .separator-container {
     flex: 0 0 auto;
-    border-left: 1px #dedede solid;
     width: 1px;
     margin-right: .5rem;
     margin-left: .5rem; }
+    .commandBar .separator-container .separator {
+      height: 80%;
+      top: 10%;
+      position: relative;
+      flex: 0 0 auto;
+      border-left: 1px #dedede solid;
+      width: 1px; }
   .commandBar .horizontalIcons {
     display: flex; }

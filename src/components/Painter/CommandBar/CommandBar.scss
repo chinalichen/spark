@@ -1,6 +1,7 @@
 .commandBar {
   height: 100%;
   display: flex;
+  padding: 0 .5rem;
   .blank {
     flex: auto;
   }
@@ -8,12 +9,19 @@
     height: 100%;
     flex: 0 1 auto;
   }
-  .separator {
+  .separator-container {
     flex: 0 0 auto;
-    border-left: 1px #dedede solid;
     width: 1px;
     margin-right: .5rem;
     margin-left: .5rem;
+    .separator {
+      height: 80%;
+      top: 10%;
+      position: relative;
+      flex: 0 0 auto;
+      border-left: 1px #dedede solid;
+      width: 1px;
+    }
   }
   .horizontalIcons {
     display: flex;
