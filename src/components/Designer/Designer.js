@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Painter from "../Painter";
 import { createShapes, getShapes } from '../../services/shape';
 import { updateDoc, getDoc, trackDoc, untrackDoc } from '../../services/doc';
+import { wsUrl } from '../../utils/url';
 
 export default class Designer extends Component {
   constructor() {
@@ -23,7 +24,7 @@ export default class Designer extends Component {
       this.setState({ doc: { ...doc, shapes } });
     });
     trackDoc(docID);
-    this.ws = new WebSocket('ws://localhost:3000/api/ws', 'ws');
+    this.ws = new WebSocket(wsUrl(), 'ws');
     this.ws.addEventListener('message', function (evt) {
       const json = evt.data;
       if (!json) {

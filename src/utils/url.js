@@ -1,0 +1,1 @@
+export const wsUrl = () => `ws://${window.location.host}/api/ws`;
