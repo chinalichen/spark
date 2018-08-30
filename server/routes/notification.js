@@ -1,4 +1,3 @@
-import { generateID } from "../../src/utils/id";
 import { clientManager, Client } from "../modules/Client";
 
 export default function notifications(router) {

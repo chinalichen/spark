@@ -1,4 +1,4 @@
-import { generateID } from "../../src/utils/id";
+import { generateID } from "../utils/id";
 
 export class Client {
   constructor(userID, conn) {
