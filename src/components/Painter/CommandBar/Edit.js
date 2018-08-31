@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon } from 'antd';
+import Icon from 'antd/lib/icon';
 import Separator from './Separator';
 
 export default class Edit extends Component {

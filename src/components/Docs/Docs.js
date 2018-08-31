@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Icon, Divider, Dropdown, Menu, Button } from 'antd';
+import Menu from 'antd/lib/menu';
+import Icon from 'antd/lib/icon';
+import Table from 'antd/lib/table';
+import Button from 'antd/lib/button';
+import Divider from 'antd/lib/divider';
+import Dropdown from 'antd/lib/dropdown';
 import { getDocs, createDoc, deleteDoc } from '../../services/doc';
 import { generateID } from '../../utils/id';
 import { FormattedRelative } from 'react-intl';

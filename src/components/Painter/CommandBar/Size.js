@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Dropdown, Menu } from 'antd';
+import Menu from 'antd/lib/menu';
+import Dropdown from 'antd/lib/dropdown';
 import PropTypes from 'prop-types';
 
 export default class Size extends Component {
