@@ -63,10 +63,10 @@ export default class Docs extends Component {
       key: 'action',
       render: (text, doc) => (
         <span>
-          <a href="javascript:;">Share</a>
+          <a>Share</a>
           <Divider type="vertical" />
           <Dropdown overlay={this.getDocMoreActions(doc)}>
-            <a href="javascript:;" className="ant-dropdown-link">
+            <a className="ant-dropdown-link">
               <Icon type="ellipsis" />
             </a>
           </Dropdown>

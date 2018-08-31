@@ -9,7 +9,7 @@ export default class Eraser extends Shpae {
     if (!points) {
       return;
     }
-    const { foreColor, backColor = 'white', size, shape } = ctx;
+    const { backColor = 'white', size } = ctx;
     this.id = getID();
     this.meta = {
       type: Shapes.Eraser,

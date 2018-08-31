@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'antd/lib/icon';
-import { Link } from 'react-router-dom';
+import Link from 'react-router-dom/Link';
 import './NavigationBar.css';
 
 export default class NavigationBar extends Component {

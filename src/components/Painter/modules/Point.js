@@ -10,7 +10,7 @@ export default class Point extends Shpae {
       return;
     }
     const { cx, cy } = Point.solve(points);
-    const { foreColor, backColor, size, shape } = ctx;
+    const { foreColor, size } = ctx;
     this.id = getID();
     this.meta = {
       type: Shapes.Point,

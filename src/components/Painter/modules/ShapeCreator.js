@@ -1,4 +1,3 @@
-import { Shapes } from "../Constants";
 import Path from './Path';
 import Point from "./Point";
 

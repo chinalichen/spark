@@ -9,7 +9,7 @@ export default class Path extends Shpae {
     if (!points) {
       return;
     }
-    const { foreColor, backColor, size, shape } = ctx;
+    const { foreColor, size } = ctx;
     this.id = getID();
     this.meta = {
       type: Shapes.Path,
