@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CompactPicker } from 'react-color';
+import CompactPicker from 'react-color/lib/Compact';
 import Popover from 'antd/lib/popover';
 
 export default class Color extends Component {

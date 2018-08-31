@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
 import Docs from './components/Docs/Docs';
 import About from './components/About/About';
 import Designer from './components/Designer/Designer';
@@ -10,13 +11,13 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div className="App">
           <Route exact path="/" component={Docs} />
           <Route path="/designer/:docID" component={Designer} />
           <Route path="/about" component={About} />
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
