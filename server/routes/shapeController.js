@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import { createShapes, findShapes } from '../modules/Shape';
 import { STATUS_CODES } from 'http';
 import { clientManager } from '../modules/Client';
 
 async function postShapes(ctx) {
   const shapes = ctx.request.body;
-  if (!_.isArray(shapes)) {
+  if (!isArray(shapes)) {
     ctx.status = 400;
     ctx.body = STATUS_CODES[400];
     return;
@@ -16,7 +16,7 @@ async function postShapes(ctx) {
   ctx.body = STATUS_CODES[200];
 
   //setTimeout(() => {
-    clientManager.send({ type: 'createShapes', docID: ctx.params.docID, shapes: shapes }, { [ctx.userID]: true });
+  clientManager.send({ type: 'createShapes', docID: ctx.params.docID, shapes: shapes }, { [ctx.userID]: true });
   //});
 }
 
