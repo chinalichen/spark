@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import PropTypes from 'prop-types';
-import { InputNumber } from 'antd';
+import InputNumber from 'antd/lib/input-number';
 
 export default class Size extends Component {
   static propTypes = {
