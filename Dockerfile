@@ -1,9 +1,9 @@
 FROM mhart/alpine-node
 
-COPY build/ /www/
+COPY build/ /front/
 COPY build-server/ /server/
 COPY node_modules/ /node_modules/
-# add volume
+VOLUME [ "/front", "/front" ]
 
-ENTRYPOINT [ "node", "/server/main.js"]
 EXPOSE 3001
+ENTRYPOINT [ "node", "/server/main.js"]
