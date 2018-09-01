@@ -1,0 +1,28 @@
+.docs {
+  overflow-y: auto;
+  height: 100%; }
+  .docs .doc {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    cursor: pointer; }
+    .docs .doc:hover {
+      border-color: #dedede; }
+    .docs .doc .thumbnail {
+      max-width: 5rem;
+      height: 3rem; }
+  .docs .topBar {
+    display: flex;
+    justify-content: space-between;
+    height: 3rem; }
+    .docs .topBar .logo {
+      font-size: 2rem;
+      line-height: 3rem;
+      cursor: pointer; }
+      .docs .topBar .logo a {
+        color: white; }
+    .docs .topBar .commandsContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around; }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Icon from 'antd/lib/icon';
 import Link from 'react-router-dom/Link';
 import './NavigationBar.css';
+import 'antd/es/icon/style';
 
 export default class NavigationBar extends Component {
   render() {

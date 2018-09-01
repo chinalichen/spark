@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'react-router-dom/Link';
 import Menu from 'antd/lib/menu';
 import Icon from 'antd/lib/icon';
-import Table from 'antd/lib/table';
+import List from 'antd/lib/list';
 import Button from 'antd/lib/button';
 import Divider from 'antd/lib/divider';
 import Dropdown from 'antd/lib/dropdown';
+import Search from 'antd/lib/input/Search';
+import Layout from 'antd/lib/layout';
+
 import { getDocs, createDoc, deleteDoc } from '../../services/doc';
 import { generateID } from '../../utils/id';
 import { FormattedRelative } from 'react-intl';
+import Doc from './Doc';
+import TopBar from './TopBar';
+import FooterBar from './FooterBar';
+
+import 'antd/es/menu/style/index.css';
+import 'antd/es/icon/style/css';
+import 'antd/es/list/style/index.css';
+import 'antd/es/button/style/index.css';
+import 'antd/es/divider/style/index.css';
+import 'antd/es/dropdown/style/index.css';
+import 'antd/es/input/style/index.css';
+import 'antd/es/layout/style/index.css';
+
+import './Docs.css';
 
 export default class Docs extends Component {
   constructor(props) {
@@ -74,9 +93,22 @@ export default class Docs extends Component {
       ),
     }];
     return (
-      <div>
-        <Button type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>
-        <Table dataSource={docs} columns={columns} />
+      <div className="docs">
+        <Layout className="layout">
+          <TopBar />
+          <Layout.Content style={{ padding: '0 50px' }}>
+            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+              <Button type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>
+              {/* <Table dataSource={docs} columns={columns} /> */}
+              <List
+                itemLayout="horizontal"
+                dataSource={docs}
+                renderItem={doc => <List.Item><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
+              />
+            </div>
+          </Layout.Content>
+          <FooterBar />
+        </Layout>
       </div>
     );
   }

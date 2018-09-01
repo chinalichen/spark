@@ -1,0 +1,36 @@
+.docs {
+  overflow-y: auto;
+  height: 100%;
+  .doc {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &:hover {
+      border-color: #dedede;
+    }
+    .thumbnail {
+      max-width: 5rem;
+      height: 3rem;
+    }
+  }
+  .topBar {
+    display: flex;
+    justify-content: space-between;
+    height: 3rem;
+    .logo {
+      a {
+        color: white;
+      }
+      font-size: 2rem;
+      line-height: 3rem;
+      cursor: pointer;
+    }
+    .commandsContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+}
