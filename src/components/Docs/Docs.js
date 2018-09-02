@@ -63,9 +63,6 @@ export default class Docs extends Component {
     );
   }
   render() {
-    if (this.state.docs.length === 0) {
-      return <Button type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>;
-    }
     const docs = this.state.docs.map(doc => ({ ...doc, key: doc.id }));
     const columns = [{
       title: 'Name',
@@ -93,13 +90,12 @@ export default class Docs extends Component {
       ),
     }];
     return (
-      <div className="docs">
+      <div className="docsContainer">
         <Layout className="layout">
           <TopBar />
-          <Layout.Content style={{ padding: '0 50px' }}>
-            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-              <Button type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>
-              {/* <Table dataSource={docs} columns={columns} /> */}
+          <Layout.Content className="docList">
+            <div style={{ background: '#fff', minHeight: 280 }}>
+              <Button className="create" type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>
               <List
                 itemLayout="horizontal"
                 dataSource={docs}

@@ -1,28 +1,46 @@
-.docs {
+.docsContainer {
   overflow-y: auto;
   height: 100%; }
-  .docs .doc {
+  .docsContainer .layout {
+    height: 100%; }
+  .docsContainer .doc {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
     border: 1px solid transparent;
     cursor: pointer; }
-    .docs .doc:hover {
+    .docsContainer .doc:hover {
       border-color: #dedede; }
-    .docs .doc .thumbnail {
+    .docsContainer .doc .thumbnail {
       max-width: 5rem;
       height: 3rem; }
-  .docs .topBar {
+  .docsContainer .topBar {
     display: flex;
     justify-content: space-between;
     height: 3rem; }
-    .docs .topBar .logo {
+    .docsContainer .topBar .logo {
       font-size: 2rem;
       line-height: 3rem;
       cursor: pointer; }
-      .docs .topBar .logo a {
+      .docsContainer .topBar .logo a {
         color: white; }
-    .docs .topBar .commandsContainer {
+    .docsContainer .topBar .commandsContainer {
       display: flex;
       flex-direction: column;
       justify-content: space-around; }
+      .docsContainer .topBar .commandsContainer .command + .command {
+        margin-left: 1rem; }
+  .docsContainer .docList {
+    padding: 0 50px; }
+    .docsContainer .docList .create {
+      display: none; }
+  @media screen and (max-width: 600px) {
+    .docsContainer .topBar {
+      padding: 0 10px; }
+    .docsContainer .docList {
+      padding: 0 10px; }
+    .docsContainer .commandsContainer .create {
+      display: none; }
+    .docsContainer .docList .create {
+      display: block;
+      width: 100%; } }

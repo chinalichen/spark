@@ -8,6 +8,7 @@ import 'antd/es/menu/style/index.css';
 // import 'antd/es/dropdown/style/index.css';
 
 import Layout from 'antd/lib/layout';
+import Button from 'antd/lib/button';
 
 export default class TopBar extends Component {
   static propTypes = {
@@ -32,6 +33,7 @@ export default class TopBar extends Component {
         </div>
         <div className="commandsContainer">
           <div className="commands">
+            <Button type="primary" icon="plus" className="create command">Create</Button>
             <Search
               className="command"
               placeholder="input search text"

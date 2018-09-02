@@ -1,6 +1,9 @@
-.docs {
+.docsContainer {
   overflow-y: auto;
   height: 100%;
+  .layout {
+    height: 100%;
+  }
   .doc {
     height: 100%;
     width: 100%;
@@ -31,6 +34,34 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      .command+.command {
+        margin-left: 1rem;
+      }
+    }
+  }
+  .docList {
+    padding: 0 50px;
+    .create {
+      display: none;
+    }
+  }
+  @media screen and(max-width: 600px) {
+    .topBar {
+      padding: 0 10px;
+    }
+    .docList {
+      padding: 0 10px;
+    }
+    .commandsContainer {
+      .create {
+        display: none;
+      }
+    }
+    .docList {
+      .create {
+        display: block;
+        width: 100%;
+      }
     }
   }
 }
