@@ -92,19 +92,20 @@ export default class Docs extends Component {
     return (
       <div className="docsContainer">
         <Layout className="layout">
-          <TopBar />
+          <TopBar onCreateDoc={this.createNewDoc} />
           <Layout.Content className="docList">
-            <div style={{ background: '#fff', minHeight: 280 }}>
-              <Button className="create" type="primary" onClick={this.createNewDoc}><Icon type="plus" /> Create</Button>
+            <div style={{ background: '#fff' }}>
               <List
+                locale={{ emptyText: <span>Press <Button type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button> button to create a new spark.</span> }}
                 itemLayout="horizontal"
                 dataSource={docs}
-                renderItem={doc => <List.Item><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
+                renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
               />
             </div>
           </Layout.Content>
           <FooterBar />
         </Layout>
+        <Button className="create" size="large" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button>
       </div>
     );
   }

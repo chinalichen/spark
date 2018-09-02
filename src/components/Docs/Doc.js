@@ -30,16 +30,19 @@ export default class Doc extends Component {
       <div className="doc">
         <img className="thumbnail" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535823280304&di=9ed6c95379d5a016be9bf32d97f6bcfb&imgtype=0&src=http%3A%2F%2Fm.link27.com%2Fdata%2Fnews%2Fjbh%2F1n2iyfwgt02.jpg" />
         <Link to={`/designer/${doc.id}`} >{doc.name}</Link>
-        <p></p>
-        <span>
-          <a>Share</a>
-          <Divider type="vertical" />
-          <Dropdown overlay={this.getDocMoreActions(doc)}>
-            <a className="ant-dropdown-link">
-              <Icon type="ellipsis" />
-            </a>
-          </Dropdown>
-        </span>
+        <div className="commands">
+          <span>
+            <a><Icon type="share-alt" />Share</a>
+            <Divider type="vertical" />
+            <a><Icon type="edit" />Rename</a>
+            <Divider type="vertical" />
+            <Dropdown overlay={this.getDocMoreActions(doc)}>
+              <a className="ant-dropdown-link">
+                <Icon type="ellipsis" />
+              </a>
+            </Dropdown>
+          </span>
+        </div>
       </div>
     );
   }

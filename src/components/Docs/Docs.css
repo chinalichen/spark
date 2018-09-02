@@ -1,20 +1,8 @@
 .docsContainer {
   overflow-y: auto;
   height: 100%; }
-  .docsContainer .layout {
-    height: 100%; }
-  .docsContainer .doc {
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid transparent;
-    cursor: pointer; }
-    .docsContainer .doc:hover {
-      border-color: #dedede; }
-    .docsContainer .doc .thumbnail {
-      max-width: 5rem;
-      height: 3rem; }
   .docsContainer .topBar {
+    padding: 0 100px;
     display: flex;
     justify-content: space-between;
     height: 3rem; }
@@ -31,16 +19,33 @@
       .docsContainer .topBar .commandsContainer .command + .command {
         margin-left: 1rem; }
   .docsContainer .docList {
-    padding: 0 50px; }
-    .docsContainer .docList .create {
-      display: none; }
+    padding: 0 100px; }
+    .docsContainer .docList .item:hover a {
+      color: #00a9ff; }
+    .docsContainer .docList .doc {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      padding: 0 1rem;
+      cursor: pointer; }
+      .docsContainer .docList .doc .thumbnail {
+        max-width: 5rem;
+        height: 3rem; }
+      .docsContainer .docList .doc .commands {
+        display: inline-block;
+        margin-left: auto;
+        line-height: 3rem; }
+  .docsContainer .create {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem; }
   @media screen and (max-width: 600px) {
     .docsContainer .topBar {
       padding: 0 10px; }
+      .docsContainer .topBar .commandsContainer .create {
+        display: none; }
     .docsContainer .docList {
       padding: 0 10px; }
-    .docsContainer .commandsContainer .create {
-      display: none; }
-    .docsContainer .docList .create {
-      display: block;
-      width: 100%; } }
+    .docsContainer .create {
+      display: block; } }

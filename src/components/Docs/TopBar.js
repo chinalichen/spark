@@ -13,7 +13,7 @@ import Button from 'antd/lib/button';
 export default class TopBar extends Component {
   static propTypes = {
     doc: PropTypes.object,
-    onDelete: PropTypes.func,
+    onCreateDoc: PropTypes.func,
   };
   getDocMoreActions(doc) {
     return (
@@ -33,7 +33,7 @@ export default class TopBar extends Component {
         </div>
         <div className="commandsContainer">
           <div className="commands">
-            <Button type="primary" icon="plus" className="create command">Create</Button>
+            <Button type="primary" icon="plus" className="create command" onClick={this.props.onCreateDoc}>Create</Button>
             <Search
               className="command"
               placeholder="input search text"
