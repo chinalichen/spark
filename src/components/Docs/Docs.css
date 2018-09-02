@@ -16,26 +16,34 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around; }
-      .docsContainer .topBar .commandsContainer .command + .command {
+      .docsContainer .topBar .commandsContainer .commands .command + .command {
         margin-left: 1rem; }
   .docsContainer .docList {
     padding: 0 100px; }
     .docsContainer .docList .item:hover a {
-      color: #00a9ff; }
+      color: #0f4b75; }
     .docsContainer .docList .doc {
       height: 100%;
       width: 100%;
       display: flex;
       padding: 0 1rem;
       cursor: pointer; }
-      .docsContainer .docList .doc .thumbnail {
-        max-width: 5rem;
-        height: 3rem; }
+      .docsContainer .docList .doc .clickable {
+        display: flex;
+        flex: 1 0 auto; }
+        .docsContainer .docList .doc .clickable .thumbnail {
+          max-width: 5rem;
+          height: 3rem; }
+        .docsContainer .docList .doc .clickable .meta {
+          text-align: left; }
+          .docsContainer .docList .doc .clickable .meta .name {
+            font-size: 1.2rem; }
+          .docsContainer .docList .doc .clickable .meta .description {
+            font-size: 0.7rem; }
       .docsContainer .docList .doc .commands {
-        display: inline-block;
-        margin-left: auto;
+        flex: 0 0 auto;
         line-height: 3rem; }
-  .docsContainer .create {
+  .docsContainer .create.fixed {
     display: none;
     position: fixed;
     right: 1rem;

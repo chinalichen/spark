@@ -105,7 +105,7 @@ export default class Docs extends Component {
           </Layout.Content>
           <FooterBar />
         </Layout>
-        <Button className="create" size="large" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button>
+        <Button className="create fixed" size="large" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button>
       </div>
     );
   }
