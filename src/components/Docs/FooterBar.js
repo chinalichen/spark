@@ -5,7 +5,7 @@ import Link from 'react-router-dom/Link';
 export default class FooterBar extends Component {
   render() {
     return (
-      <Layout.Footer style={{ textAlign: 'center' }}>
+      <Layout.Footer className="footerBar">
         ©2018 Created by <Link to="/about">Lichen</Link>
       </Layout.Footer>
     );

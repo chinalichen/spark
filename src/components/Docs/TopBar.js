@@ -33,7 +33,9 @@ export default class TopBar extends Component {
         </div>
         <div className="commandsContainer">
           <div className="commands">
-            <Button type="primary" icon="plus" className="create command" onClick={this.props.onCreateDoc}>Create</Button>
+            <Button type="primary" icon="plus" className="create fixed command" onClick={this.props.onCreateDoc}>
+              <span>Create</span>
+            </Button>
             <Search
               className="command"
               placeholder="input search text"

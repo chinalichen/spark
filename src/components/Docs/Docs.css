@@ -1,6 +1,8 @@
 .docsContainer {
   overflow-y: auto;
   height: 100%; }
+  .docsContainer .layout {
+    height: 100%; }
   .docsContainer .topBar {
     padding: 0 100px;
     display: flex;
@@ -19,7 +21,10 @@
       .docsContainer .topBar .commandsContainer .commands .command + .command {
         margin-left: 1rem; }
   .docsContainer .docList {
-    padding: 0 100px; }
+    padding: 0 100px;
+    height: calc(100% - 7rem);
+    overflow-y: auto;
+    overflow-x: hidden; }
     .docsContainer .docList .item:hover a {
       color: #0f4b75; }
     .docsContainer .docList .doc {
@@ -43,17 +48,27 @@
       .docsContainer .docList .doc .commands {
         flex: 0 0 auto;
         line-height: 3rem; }
-  .docsContainer .create.fixed {
-    display: none;
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem; }
+  .docsContainer .footerBar {
+    height: 4rem;
+    text-align: center; }
   @media screen and (max-width: 600px) {
-    .docsContainer .topBar {
-      padding: 0 10px; }
-      .docsContainer .topBar .commandsContainer .create {
-        display: none; }
+    .docsContainer .topBar,
     .docsContainer .docList {
       padding: 0 10px; }
+    .docsContainer .fixed {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem; }
+    .docsContainer .inline {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 1rem;
+      padding: 0 0; }
+      .docsContainer .inline span {
+        display: none; }
     .docsContainer .create {
-      display: block; } }
+      height: 3rem;
+      width: 3rem;
+      border-radius: 1.5rem; }
+      .docsContainer .create span {
+        display: none; } }
