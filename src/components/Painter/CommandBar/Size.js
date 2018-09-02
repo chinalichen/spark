@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
-import PropTypes from 'prop-types';
 import InputNumber from 'antd/lib/input-number';
+
+import 'antd/es/menu/style/index.css';
+import 'antd/es/dropdown/style/index.css';
+import 'antd/es/input-number/style/index.css';
 
 export default class Size extends Component {
   static propTypes = {

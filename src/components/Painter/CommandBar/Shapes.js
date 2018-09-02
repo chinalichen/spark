@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import Dropdown from 'antd/lib/dropdown';
 import Menu from 'antd/lib/menu';
 import Icon from 'antd/lib/icon';
+import Dropdown from 'antd/lib/dropdown';
 import PropTypes from 'prop-types';
+
+import 'antd/es/menu/style/index.css';
+import 'antd/es/dropdown/style/index.css';
 
 export default class Shapes extends Component {
   static propTypes = {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import CompactPicker from 'react-color/lib/Compact';
 import Popover from 'antd/lib/popover';
 
+import 'antd/es/popover/style/index.css';
+
 export default class Color extends Component {
   static propTypes = {
     foreColor: PropTypes.string,
