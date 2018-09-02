@@ -10,8 +10,8 @@
   .commandBar .separator-container {
     flex: 0 0 auto;
     width: 1px;
-    margin-right: .5rem;
-    margin-left: .5rem; }
+    margin-right: .2rem;
+    margin-left: .2rem; }
     .commandBar .separator-container .separator {
       height: 80%;
       top: 10%;
