@@ -25,7 +25,6 @@ export default class TopBar extends Component {
     );
   }
   render() {
-    const doc = this.props.doc;
     return (
       <Layout.Header className="topBar">
         <div className="logo">

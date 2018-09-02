@@ -39,7 +39,11 @@ export default class Doc extends Component {
     return (
       <div className="doc">
         <div className="clickable" onClick={this.goToDoc.bind(this, doc.id)}>
-          <img className="thumbnail" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535823280304&di=9ed6c95379d5a016be9bf32d97f6bcfb&imgtype=0&src=http%3A%2F%2Fm.link27.com%2Fdata%2Fnews%2Fjbh%2F1n2iyfwgt02.jpg" />
+          <img
+            className="thumbnail"
+            alt="Thumbnail of this spark"
+            src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535823280304&di=9ed6c95379d5a016be9bf32d97f6bcfb&imgtype=0&src=http%3A%2F%2Fm.link27.com%2Fdata%2Fnews%2Fjbh%2F1n2iyfwgt02.jpg"
+          />
           <div className="meta">
             <a>
               <span className="name">{doc.name}</span><br />

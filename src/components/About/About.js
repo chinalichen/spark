@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'react-router-dom/Link';
 import Layout from 'antd/lib/layout';
-import { FormattedRelative } from 'react-intl';
 
 import 'antd/es/layout/style/index.css';
 import './About.css';
