@@ -1,0 +1,37 @@
+.aboutContainer {
+  height: 100%;
+  .layout {
+    height: 100%;
+    .header,
+    .content {
+      padding: 0 100px;
+    }
+    .header {
+      height: 3rem;
+      text-align: left;
+      .logo {
+        a {
+          color: white;
+        }
+        font-size: 2rem;
+        line-height: 3rem;
+        cursor: pointer;
+      }
+    }
+    .content {
+      height: calc(100% - 7rem);
+      p {
+        background-color: white;
+      }
+    }
+    .footer {
+      height: 4rem;
+    }
+    @media screen and(max-width: 600px) {
+      .header,
+      .content {
+        padding: 0 10px;
+      }
+    }
+  }
+}

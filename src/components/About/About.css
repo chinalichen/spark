@@ -1,0 +1,26 @@
+.aboutContainer {
+  height: 100%; }
+  .aboutContainer .layout {
+    height: 100%; }
+    .aboutContainer .layout .header,
+    .aboutContainer .layout .content {
+      padding: 0 100px; }
+    .aboutContainer .layout .header {
+      height: 3rem;
+      text-align: left; }
+      .aboutContainer .layout .header .logo {
+        font-size: 2rem;
+        line-height: 3rem;
+        cursor: pointer; }
+        .aboutContainer .layout .header .logo a {
+          color: white; }
+    .aboutContainer .layout .content {
+      height: calc(100% - 7rem); }
+      .aboutContainer .layout .content p {
+        background-color: white; }
+    .aboutContainer .layout .footer {
+      height: 4rem; }
+    @media screen and (max-width: 600px) {
+      .aboutContainer .layout .header,
+      .aboutContainer .layout .content {
+        padding: 0 10px; } }
