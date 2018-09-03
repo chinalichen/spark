@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Route from 'react-router-dom/Route';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
-// import Docs from './components/Docs/Docs';
-// import About from './components/About/About';
-// import Designer from './components/Designer/Designer';
+import Docs from './components/Docs/Docs';
+import About from './components/About/About';
+import Designer from './components/Designer/Designer';
 
 import './App.css';
-import asyncComponent from './components/AsyncComponent';
+// import asyncComponent from './components/AsyncComponent';
 
-const Docs = asyncComponent(() => import('./components/Docs/Docs'));
-const Designer = asyncComponent(() => import('./components/Designer/Designer'));
-const About = asyncComponent(() => import('./components/About/About'));
+// const Docs = asyncComponent(() => import('./components/Docs/Docs'));
+// const Designer = asyncComponent(() => import('./components/Designer/Designer'));
+// const About = asyncComponent(() => import('./components/About/About'));
 
 class App extends Component {
   render() {

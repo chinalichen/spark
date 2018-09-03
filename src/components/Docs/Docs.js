@@ -22,13 +22,13 @@ import './Docs.css';
 export default class Docs extends Component {
   constructor(props) {
     super(props);
-    this.state = { docs: [] };
+    this.state = { docs: [], loading: true };
     this.createNewDoc = this.createNewDoc.bind(this);
     this.deleteDoc = this.deleteDoc.bind(this);
   }
   componentDidMount() {
     getDocs().then(({ data: docs }) => {
-      this.setState({ docs });
+      this.setState({ docs, loading: false });
     });
   }
   createNewDoc() {
@@ -62,6 +62,7 @@ export default class Docs extends Component {
           <Layout.Content className="docList">
             <div style={{ background: '#fff' }}>
               <List
+                loading={this.state.loading}
                 locale={{ emptyText: <span>Press <Button className="inline" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button> button to create a new spark.</span> }}
                 itemLayout="horizontal"
                 dataSource={docs}

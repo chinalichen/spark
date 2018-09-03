@@ -69,6 +69,7 @@
     .docsContainer .create {
       height: 3rem;
       width: 3rem;
-      border-radius: 1.5rem; }
+      border-radius: 1.5rem;
+      box-shadow: 0px 0px 5px 1px grey; }
       .docsContainer .create span {
         display: none; } }
