@@ -30,7 +30,7 @@
     "build": "npm-run-all build-css build-js build-server",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "analyze": "source-map-explorer build/static/js/main.*"
+    "analyze": "source-map-explorer build/static/css/main.*"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
