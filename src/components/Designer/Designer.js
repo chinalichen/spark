@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import Icon from 'antd/lib/icon';
 import Painter from "../Painter";
 import { createShapes, getShapes } from '../../services/shape';
 import { updateDoc, getDoc, trackDoc, untrackDoc } from '../../services/doc';
 import { wsUrl } from '../../utils/url';
 
+import 'antd/es/icon/style/css';
+import './Designer.css';
+
 export default class Designer extends Component {
   constructor() {
     super();
-    this.state = { doc: { shapes: [] } };
+    this.state = { doc: { shapes: [] }, loading: true };
 
     this.handleCreateShapes = this.handleCreateShapes.bind(this);
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
@@ -21,7 +25,7 @@ export default class Designer extends Component {
     const d = getDoc(docID);
     const s = getShapes(docID);
     Promise.all([d, s]).then(([{ data: doc }, { data: shapes }]) => {
-      this.setState({ doc: { ...doc, shapes } });
+      this.setState({ doc: { ...doc, shapes }, loading: false });
     });
     trackDoc(docID);
     this.ws = new WebSocket(wsUrl(), 'ws');
@@ -64,7 +68,10 @@ export default class Designer extends Component {
   }
   render() {
     return (
-      <Painter doc={this.state.doc} onSettingsChange={this.handleSettingsChange} onCreateShapes={this.handleCreateShapes} />
+      <div className="designer">
+        {this.state.loading && <Icon type="sync" />}
+        <Painter doc={this.state.doc} onSettingsChange={this.handleSettingsChange} onCreateShapes={this.handleCreateShapes} />
+      </div>
     );
   }
 }
