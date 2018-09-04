@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Menu from 'antd/lib/menu';
+import Icon from 'antd/lib/icon';
 import List from 'antd/lib/list';
 import Button from 'antd/lib/button';
 import Layout from 'antd/lib/layout';
@@ -13,9 +14,6 @@ import 'antd/es/menu/style/index.css';
 import 'antd/es/icon/style/css';
 import 'antd/es/list/style/index.css';
 import 'antd/es/button/style/index.css';
-import 'antd/es/divider/style/index.css';
-import 'antd/es/dropdown/style/index.css';
-import 'antd/es/input/style/index.css';
 import 'antd/es/layout/style/index.css';
 import './Docs.css';
 
@@ -61,13 +59,15 @@ export default class Docs extends Component {
           <TopBar onCreateDoc={this.createNewDoc} />
           <Layout.Content className="docList">
             <div style={{ background: '#fff' }}>
-              <List
-                loading={this.state.loading}
-                locale={{ emptyText: <span>Press <Button className="inline" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button> button to create a new spark.</span> }}
-                itemLayout="horizontal"
-                dataSource={docs}
-                renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
-              />
+              {this.state.loading
+                ? <Icon type="loading" />
+                : <List
+                  locale={{ emptyText: <span>Press <Button className="inline" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button> button to create a new spark.</span> }}
+                  itemLayout="horizontal"
+                  dataSource={docs}
+                  renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
+                />}
+
             </div>
           </Layout.Content>
           <FooterBar />

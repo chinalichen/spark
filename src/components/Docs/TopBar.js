@@ -9,6 +9,7 @@ import 'antd/es/menu/style/index.css';
 
 import Layout from 'antd/lib/layout';
 import Button from 'antd/lib/button';
+import 'antd/es/input/style/index.css';
 
 export default class TopBar extends Component {
   static propTypes = {
