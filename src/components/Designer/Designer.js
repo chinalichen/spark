@@ -13,6 +13,8 @@ export default class Designer extends Component {
     super();
     this.state = { doc: { shapes: [] }, loading: true };
 
+    this.undo = this.undo.bind(this);
+    this.redo = this.redo.bind(this);
     this.handleCreateShapes = this.handleCreateShapes.bind(this);
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
   }
@@ -65,12 +67,25 @@ export default class Designer extends Component {
     };
     this.setState({ doc });
     updateDoc(doc);
+    
+  }
+  undo() {
+
+  }
+  redo() {
+
   }
   render() {
     return (
       <div className="designer">
         {this.state.loading && <Icon type="sync" />}
-        <Painter doc={this.state.doc} onSettingsChange={this.handleSettingsChange} onCreateShapes={this.handleCreateShapes} />
+        <Painter
+          doc={this.state.doc}
+          undo={this.undo}
+          redo={this.redo}
+          onSettingsChange={this.handleSettingsChange}
+          onCreateShapes={this.handleCreateShapes}
+        />
       </div>
     );
   }

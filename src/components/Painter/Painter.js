@@ -9,6 +9,8 @@ import './Painter.css';
 export default class Painter extends Component {
   static propTypes = {
     doc: PropTypes.object,
+    undo: PropTypes.func,
+    redo: PropTypes.func,
     onSettingsChange: PropTypes.func,
     onCreateShapes: PropTypes.func,
   };
@@ -36,7 +38,7 @@ export default class Painter extends Component {
           <div className="title">
             <b>{this.props.doc.name}</b>
           </div>
-          <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} />
+          <CommandBar settings={settings} onSettingsChange={this.handleSettingsChange} undo={this.props.undo} redo={this.props.redo} />
         </div>
         <div className="boardContainer">
           <Board
