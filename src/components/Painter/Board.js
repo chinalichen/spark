@@ -60,6 +60,7 @@ export default class Board extends Component {
     if (!this.pointsList) {
       this.pointsList = [];
     }
+    this.updateCanvasRect();
     this.pointsList[idx] = (this.pointsList[idx] || []).concat([x - this.canvasRect.x, y - this.canvasRect.y]);
   }
   updateCurrentPath() {
@@ -146,8 +147,10 @@ export default class Board extends Component {
     const metas = shapes.map(s => s.meta);
     return metas;
   }
-  componentDidMount() {
-    this.canvasRect = this.canvasElem.getBoundingClientRect();
+  updateCanvasRect() {
+    if (!this.canvasRect) {
+      this.canvasRect = this.canvasElem.getBoundingClientRect();
+    }
   }
   render() {
     const shapes = this.props.doc.shapes.map(s => createShape(s)).map(s => s.elem);
