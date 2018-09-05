@@ -1,8 +1,12 @@
 .board {
   height: 100%;
+  padding: 3rem;
+  background-image: url(/images/transparent.png);
+  background-repeat: repeat;
   .canvas {
     height: 100%;
     position: relative;
+    background-color: white;
   }
   .svgDrawing {
     top: 0;
