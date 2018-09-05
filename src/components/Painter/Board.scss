@@ -1,12 +1,22 @@
 .board {
   height: 100%;
-  padding: 3rem;
+  padding: 1rem;
   background-image: url(/images/transparent.png);
   background-repeat: repeat;
   .canvas {
     height: 100%;
     position: relative;
     background-color: white;
+    .cornerResizer {
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      background-color: white;
+      right: -0.5rem;
+      bottom: -0.5rem;
+      cursor: se-resize;
+      border: 1px solid black;
+    }
   }
   .svgDrawing {
     top: 0;

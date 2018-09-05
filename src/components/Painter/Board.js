@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 import { hasXY, solve } from './utils';
 import Point from './modules/Point';
 import Path from './modules/Path';
@@ -28,8 +29,8 @@ export default class Board extends Component {
 
     doc: PropTypes.object,
 
-    onDocChange: PropTypes.func,
     onCreateShapes: PropTypes.func,
+    onSettingsChange: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -45,10 +46,26 @@ export default class Board extends Component {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleCanvasResizeStart = this.handleCanvasResizeStart.bind(this);
+    this.handleCanvasResizing = this.handleCanvasResizing.bind(this);
+    this.handleCanvasResizeEnd = this.handleCanvasResizeEnd.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     const ctx = updateContext(nextProps);
     this.setState({ context: ctx });
+  }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+  handleResize() {
+    this.canvasRect = this.canvasElem.getBoundingClientRect();
+    if (this.props.onSettingsChange) {
+      this.props.onSettingsChange({ ...this.props.settings, canvasSize: this.canvasRect });
+    }
   }
   hasPoints() {
     if (!this.pointsList) {
@@ -150,10 +167,28 @@ export default class Board extends Component {
   updateCanvasRect() {
     if (!this.canvasRect) {
       this.canvasRect = this.canvasElem.getBoundingClientRect();
+      if (get(this.props.settings, 'canvasSize.height') !== this.canvasRect.height
+        || get(this.props.settings, 'canvasSize.width') !== this.canvasRect.width) {
+        this.props.onSettingsChange({ ...this.props.settings, canvasSize: this.canvasRect })
+      }
     }
+  }
+  handleCanvasResizeStart() {
+    this.setState({ resizing: true });
+  }
+  handleCanvasResizing() {
+
+  }
+  handleCanvasResizeEnd() {
+    this.setState({ resizing: false });
   }
   render() {
     const shapes = this.props.doc.shapes.map(s => createShape(s)).map(s => s.elem);
+    const canvasStyle = {};
+    if (this.canvasRect) {
+      canvasStyle.height = `${this.canvasRect.height}px`;
+      canvasStyle.width = `${this.canvasRect.width}px`;
+    }
     return (
       <div className="board">
         <div
@@ -166,6 +201,7 @@ export default class Board extends Component {
           onMouseDown={this.handleDrawStart}
           onMouseMove={this.handleDrawMove}
           onMouseUp={this.handleDrawEnd}
+          style={{ ...canvasStyle }}
         >
           <svg className="svgDrawing">
             {shapes}
@@ -173,6 +209,13 @@ export default class Board extends Component {
           <svg className="svgDrawing">
             {this.state.currentPaths.map(({ key, d, ...styles }) => <path key={key} d={d} style={{ ...styles }} />)}
           </svg>
+          <div
+            className="cornerResizer"
+            // style={{ top: this.canvasRect.bottom + 'px', left: this.canvasRect.right + 'px' }}
+            onMouseDown={this.handleCanvasResizeStart}
+            onMouseMove={this.handleCanvasResizing}
+            onMouseUp={this.handleCanvasResizeEnd}
+          ></div>
         </div>
       </div>
     );

@@ -67,7 +67,6 @@ export default class Docs extends Component {
                   dataSource={docs}
                   renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
                 />}
-
             </div>
           </Layout.Content>
           <FooterBar />

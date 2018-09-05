@@ -2,11 +2,17 @@ import mogoose, { Schema } from 'mongoose';
 
 const docsTrackings = {};
 
+const CanvasSize = new Schema({
+  height: Number,
+  width: Number,
+});
+
 const DocSettings = new Schema({
   backColor: String,
   foreColor: String,
   size: Number,
   shape: String,
+  canvasSize: CanvasSize,
 });
 
 const Doc = new Schema({
