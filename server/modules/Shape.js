@@ -1,27 +1,34 @@
 import mogoose, { Schema } from 'mongoose';
-const ObjectId = Schema.ObjectId;
 
 const Shape = new Schema({
   id: String,
-  settings: String,
+  index: Number,
   docID: String,
+  settings: String,
 }, { id: false });
 
 const ShapeModel = mogoose.model('shapes', Shape);
 
 export async function createShapes(docID, shapes) {
   for (let i = 0; i < shapes.length; i++) {
-    const { id, ...settings } = shapes[i];
+    const { id, index, ...settings } = shapes[i];
+
     const shape = new ShapeModel();
     shape.id = id;
-    shape.settings = JSON.stringify(settings);
+    shape.index = index;
     shape.docID = docID;
+    shape.settings = JSON.stringify(settings);
+
     await shape.save((err) => {
       if (err != null) {
         console.log('save shape error: ', err, id, settings);
       }
     });
   }
+}
+
+export async function deleteShapes(docID, shapesIDs) {
+  ShapeModel.remove({ docID, id: { $in: shapesIDs } });
 }
 
 export async function findShapes(docID) {

@@ -1,9 +1,9 @@
 import isArray from 'lodash/isArray';
-import { createShapes, findShapes } from '../modules/Shape';
+import { createShapes, findShapes, deleteShapes } from '../modules/Shape';
 import { STATUS_CODES } from 'http';
 import { clientManager } from '../modules/Client';
 
-async function postShapes(ctx) {
+async function postShapesFunc(ctx) {
   const shapes = ctx.request.body;
   if (!isArray(shapes)) {
     ctx.status = 400;
@@ -20,7 +20,21 @@ async function postShapes(ctx) {
   //});
 }
 
-async function getShapes(ctx) {
+async function deleteShapesFunc(ctx) {
+  const shapesIDs = ctx.request.body;
+  if (!isArray(shapesIDs)) {
+    ctx.status = 400;
+    ctx.body = STATUS_CODES[400];
+    return;
+  }
+  await deleteShapes(ctx.params.docID, shapesIDs);
+  ctx.status = 200;
+  ctx.body = STATUS_CODES[200];
+
+  clientManager.send({ type: 'deleteShapes', docID: ctx.params.docID, shapesIDs: shapesIDs }, { [ctx.userID]: true });
+}
+
+async function getShapesFunc(ctx) {
   const docID = ctx.params.docID;
   const shapes = await findShapes(docID);
   ctx.status = 200;
@@ -29,6 +43,7 @@ async function getShapes(ctx) {
 
 export default function shapes(router) {
   return router
-    .get('/api/docs/:docID/shapes', getShapes)
-    .post('/api/docs/:docID/shapes', postShapes);
+    .get('/api/docs/:docID/shapes', getShapesFunc)
+    .post('/api/docs/:docID/shapes', postShapesFunc)
+    .post('/api/docs/:docID/shapes/deletes', deleteShapesFunc);
 }

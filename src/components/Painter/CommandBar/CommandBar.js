@@ -11,6 +11,8 @@ import './CommandBar.css';
 
 export default class CommandBar extends Component {
   static propTypes = {
+    undo: PropTypes.func,
+    redo: PropTypes.func,
     settings: PropTypes.object.isRequired,
     onSettingsChange: PropTypes.func.isRequired,
   };
@@ -38,7 +40,7 @@ export default class CommandBar extends Component {
     const { foreColor, backColor, size, shape } = this.props.settings;
     return (
       <div className="commandBar">
-        <Edit />
+        <Edit undo={this.props.undo} redo={this.props.redo} />
         {/* <Separator />
         <Image />
         <Separator />

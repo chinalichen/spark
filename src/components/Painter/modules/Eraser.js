@@ -1,7 +1,8 @@
 import React from 'react';
 import Shpae from './Shape';
-import { getID } from '../utils';
+import { getIndex } from '../utils';
 import { Shapes } from '../Constants';
+import { generateID } from '../../../utils/id';
 
 export default class Eraser extends Shpae {
   constructor(points, ctx) {
@@ -10,7 +11,7 @@ export default class Eraser extends Shpae {
       return;
     }
     const { backColor = 'white', size } = ctx;
-    this.id = getID();
+    this.id = generateID();
     this.meta = {
       type: Shapes.Eraser,
       id: this.id,

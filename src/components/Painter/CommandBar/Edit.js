@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Icon from 'antd/lib/icon';
 import Separator from './Separator';
 
 export default class Edit extends Component {
-  undo() {
-
-  }
-  redo() {
-
-  }
+  static propTypes = {
+    undo: PropTypes.func,
+    redo: PropTypes.func,
+  };
   render() {
     return (
       <div className="section">
         Edit
         <div className="horizontalIcons">
-          <a title="undo"><Icon type="rollback" /></a>
+          <a title="undo" onClick={this.props.undo}>
+            <Icon type="rollback" />
+          </a>
           <Separator />
-          <a title="redo"><Icon type="rollback" style={{ transform: 'scaleX(-1)' }} /></a>
+          <a title="redo" onClick={this.props.undo}>
+            <Icon type="rollback" style={{ transform: 'scaleX(-1)' }} />
+          </a>
         </div>
       </div>
     );

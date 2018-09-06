@@ -5,7 +5,7 @@ export function createShapes(docID, shapes) {
 }
 
 export function deleteShapes(docID, shapesIDs) {
-  return axios.delete(`/api/docs/${docID}/shapes`, shapesIDs);
+  return axios.post(`/api/docs/${docID}/shapes/deletes`, shapesIDs);
 }
 
 export function getShapes(docID) {

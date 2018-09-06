@@ -1,7 +1,8 @@
 import React from 'react';
 import Shpae from './Shape';
-import { getID } from '../utils';
+import { getIndex } from '../utils';
 import { Shapes } from '../Constants';
+import { generateID } from '../../../utils/id';
 
 export default class Point extends Shpae {
   constructor(points, ctx) {
@@ -11,7 +12,7 @@ export default class Point extends Shpae {
     }
     const { cx, cy } = Point.solve(points);
     const { foreColor, size } = ctx;
-    this.id = getID();
+    this.id = generateID();
     this.meta = {
       type: Shapes.Point,
       id: this.id,

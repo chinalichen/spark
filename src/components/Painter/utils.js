@@ -45,7 +45,7 @@ export function distance(x1, y1, x2, y2) {
 	return Math.sqrt(x * x + y * y);
 }
 
-let id = Date.now();
-export function getID() {
-	return id++;
+let index = Date.now();
+export function getIndex() {
+	return index++;
 }

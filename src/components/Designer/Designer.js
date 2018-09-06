@@ -11,16 +11,20 @@ import ActionManager from '../../utils/ActionManager';
 import { CreateShapesAction } from '../../utils/Actions';
 
 export default class Designer extends Component {
-  constructor() {
-    super();
-    this.state = { doc: { shapes: [] }, loading: true };
-    this.actionManager = new ActionManager(this.state.doc);
-    this.actionManager.onChange = doc => this.setState({ doc });
+  constructor(props) {
+    super(props);
+
+    this.actionManager = null;
+    this.state = { doc: { id: props.match.params.docID, shapes: [] }, loading: true };
 
     this.undo = this.undo.bind(this);
     this.redo = this.redo.bind(this);
     this.handleCreateShapes = this.handleCreateShapes.bind(this);
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
+  }
+  initActionManager(doc) {
+    this.actionManager = new ActionManager(doc);
+    this.actionManager.onChange = changedDoc => this.setState({ doc: changedDoc });
   }
   getDocID() {
     return this.props.match.params.docID;
@@ -28,11 +32,13 @@ export default class Designer extends Component {
   componentDidMount() {
     const self = this;
     const docID = this.getDocID();
-    const d = getDoc(docID);
-    const s = getShapes(docID);
-    Promise.all([d, s]).then(([{ data: doc }, { data: shapes }]) => {
-      this.setState({ doc: { ...doc, shapes }, loading: false });
-    });
+    Promise
+      .all([getDoc(docID), getShapes(docID)])
+      .then(([{ data: doc }, { data: shapes }]) => {
+        const merged = { ...doc, shapes };
+        this.initActionManager(merged);
+        this.setState({ doc: merged, loading: false });
+      });
     trackDoc(docID);
     this.ws = new WebSocket(wsUrl(), 'ws');
     this.ws.addEventListener('message', function (evt) {
@@ -83,10 +89,14 @@ export default class Designer extends Component {
     updateDoc(doc);
   }
   undo() {
-
+    if (this.actionManager) {
+      this.actionManager.undo();
+    }
   }
   redo() {
-
+    if (this.actionManager) {
+      this.actionManager.redo();
+    }
   }
   render() {
     return (
