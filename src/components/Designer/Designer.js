@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import Icon from 'antd/lib/icon';
 import Painter from "../Painter";
-import { createShapes, getShapes } from '../../services/shape';
+import { getShapes } from '../../services/shape';
 import { updateDoc, getDoc, trackDoc, untrackDoc } from '../../services/doc';
 import { wsUrl } from '../../utils/url';
 
 import 'antd/es/icon/style/css';
 import './Designer.css';
+import ActionManager from '../../utils/ActionManager';
+import { CreateShapesAction } from '../../utils/Actions';
 
 export default class Designer extends Component {
   constructor() {
     super();
     this.state = { doc: { shapes: [] }, loading: true };
+    this.actionManager = new ActionManager(this.state.doc);
+    this.actionManager.onChange = doc => this.setState({ doc });
 
     this.undo = this.undo.bind(this);
     this.redo = this.redo.bind(this);
@@ -53,12 +57,22 @@ export default class Designer extends Component {
     untrackDoc(this.getDocID());
   }
   handleCreateShapes(shapes) {
-    const doc = {
-      ...this.state.doc,
-      shapes: this.state.doc.shapes.concat(shapes),
-    };
-    this.setState({ doc });
-    createShapes(this.getDocID(), shapes);
+    const action = new CreateShapesAction(shapes);
+    // action.run = () => {
+    //   const doc = {
+    //     ...this.state.doc,
+    //     shapes: this.state.doc.shapes.concat(shapes),
+    //   };
+    //   this.setState({ doc });
+    //   createShapes(this.getDocID(), shapes);
+    // };
+    this.actionManager.executeAction(action);
+    // const doc = {
+    //   ...this.state.doc,
+    //   shapes: this.state.doc.shapes.concat(shapes),
+    // };
+    // this.setState({ doc });
+    // createShapes(this.getDocID(), shapes);
   }
   handleSettingsChange(settings) {
     const doc = {
@@ -67,7 +81,6 @@ export default class Designer extends Component {
     };
     this.setState({ doc });
     updateDoc(doc);
-    
   }
   undo() {
 
