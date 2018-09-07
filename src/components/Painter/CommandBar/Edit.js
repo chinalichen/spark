@@ -10,7 +10,7 @@ export default class Edit extends Component {
   };
   render() {
     return (
-      <div className="section">
+      <div className="section edit">
         Edit
         <div className="horizontalIcons">
           <a title="undo" onClick={this.props.undo}>

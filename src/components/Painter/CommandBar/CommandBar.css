@@ -33,6 +33,9 @@
     .commandBar .colorIndicator .back {
       bottom: 0;
       right: 0; }
+  .commandBar .edit .separator-container {
+    margin-right: .4rem;
+    margin-left: .4rem; }
 
 .pickerContainer hr {
   margin: 1rem 0; }
