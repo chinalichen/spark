@@ -17,7 +17,7 @@ export default class Edit extends Component {
             <Icon type="rollback" />
           </a>
           <Separator />
-          <a title="redo" onClick={this.props.undo}>
+          <a title="redo" onClick={this.props.redo}>
             <Icon type="rollback" style={{ transform: 'scaleX(-1)' }} />
           </a>
         </div>
