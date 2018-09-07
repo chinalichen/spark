@@ -64,21 +64,7 @@ export default class Designer extends Component {
   }
   handleCreateShapes(shapes) {
     const action = new CreateShapesAction(shapes);
-    // action.run = () => {
-    //   const doc = {
-    //     ...this.state.doc,
-    //     shapes: this.state.doc.shapes.concat(shapes),
-    //   };
-    //   this.setState({ doc });
-    //   createShapes(this.getDocID(), shapes);
-    // };
     this.actionManager.executeAction(action);
-    // const doc = {
-    //   ...this.state.doc,
-    //   shapes: this.state.doc.shapes.concat(shapes),
-    // };
-    // this.setState({ doc });
-    // createShapes(this.getDocID(), shapes);
   }
   handleSettingsChange(settings) {
     const doc = {
