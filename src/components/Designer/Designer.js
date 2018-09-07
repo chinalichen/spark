@@ -8,7 +8,7 @@ import { wsUrl } from '../../utils/url';
 import 'antd/es/icon/style/css';
 import './Designer.css';
 import ActionManager from '../../utils/ActionManager';
-import { CreateShapesAction } from '../../utils/Actions';
+import { CreateShapesAction, UpdateSettingsAction } from '../../utils/Actions';
 
 export default class Designer extends Component {
   constructor(props) {
@@ -67,12 +67,8 @@ export default class Designer extends Component {
     this.actionManager.executeAction(action);
   }
   handleSettingsChange(settings) {
-    const doc = {
-      ...this.state.doc,
-      settings,
-    };
-    this.setState({ doc });
-    updateDoc(doc);
+    const action = new UpdateSettingsAction(settings);
+    this.actionManager.executeAction(action);
   }
   undo() {
     if (this.actionManager) {

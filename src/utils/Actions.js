@@ -1,4 +1,5 @@
 import { createShapes, deleteShapes } from "../services/shape";
+import { updateDoc } from "../services/doc";
 
 export class Action {
   execute() { }
@@ -31,5 +32,29 @@ export class CreateShapesAction extends Action {
   undoServer(docID, shapes) {
     const ids = shapes.map(s => s.id);
     deleteShapes(docID, ids);
+  }
+}
+
+export class UpdateSettingsAction extends Action {
+  constructor(settings) {
+    super();
+    this.ctx = { settings, oldSettings: null };
+  }
+  execute(doc) {
+    this.ctx.oldSettings = doc.settings;
+    const newDoc = { ...doc, settings: this.ctx.settings };
+    this.executeServer(newDoc);
+    return newDoc;
+  }
+  executeServer(doc) {
+    updateDoc(doc);
+  }
+  undo(doc) {
+    const oldDoc = { ...doc, settings: this.ctx.oldSettings };
+    this.undoServer(oldDoc);
+    return oldDoc;
+  }
+  undoServer(doc) {
+    updateDoc(doc);
   }
 }
