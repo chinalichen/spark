@@ -28,7 +28,15 @@ export async function createShapes(docID, shapes) {
 }
 
 export async function deleteShapes(docID, shapesIDs) {
-  ShapeModel.remove({ docID, id: { $in: shapesIDs } });
+  return new Promise((resolve, reject) => {
+    ShapeModel.remove({ docID, id: { $in: shapesIDs } }, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 export async function findShapes(docID) {
