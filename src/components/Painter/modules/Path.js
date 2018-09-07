@@ -15,6 +15,7 @@ export default class Path extends Shpae {
     this.meta = {
       type: Shapes.Path,
       id: this.id,
+      index: getIndex(),
       d: Path.solve(points),
       stroke: foreColor,
       strokeWidth: size,

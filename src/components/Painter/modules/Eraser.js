@@ -15,6 +15,7 @@ export default class Eraser extends Shpae {
     this.meta = {
       type: Shapes.Eraser,
       id: this.id,
+      index: getIndex(),
       d: Eraser.solve(points),
       stroke: backColor,
       strokeWidth: size,

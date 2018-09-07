@@ -16,6 +16,7 @@ export default class Point extends Shpae {
     this.meta = {
       type: Shapes.Point,
       id: this.id,
+      index: getIndex(),
       cx, cy, r: size / 2,
       fill: foreColor,
       stroke: foreColor,
