@@ -78,7 +78,7 @@ export default class Board extends Component {
       this.pointsList = [];
     }
     this.updateCanvasRect();
-    this.pointsList[idx] = (this.pointsList[idx] || []).concat([x - this.canvasRect.x, y - this.canvasRect.y]);
+    this.pointsList[idx] = (this.pointsList[idx] || []).concat([x - this.canvasRect.left, y - this.canvasRect.top]);
   }
   updateCurrentPath() {
     if (this.hasPoints()) {
