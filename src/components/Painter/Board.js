@@ -101,7 +101,6 @@ export default class Board extends Component {
   handleTouchStart(evt) {
     Array.from(evt.changedTouches).filter(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
     this.updateCurrentPath();
-    evt.preventDefault();
   }
   handleDrawMove(evt) {
     if (!this.hasPoints()) {
@@ -116,7 +115,6 @@ export default class Board extends Component {
     }
     Array.from(evt.changedTouches).filter(hasXY).forEach(te => this.updatePoints(te.identifier, te.clientX, te.clientY));
     this.updateCurrentPath();
-    evt.preventDefault();
   }
   handleDrawEnd(evt) {
     if (!this.hasPoints()) {
@@ -145,7 +143,6 @@ export default class Board extends Component {
     this.props.onCreateShapes(metas);
     indices.forEach(i => (this.pointsList[i] = null));
     this.setState({ currentPaths: this.state.currentPaths.filter((p, i) => !indices.includes(i)) });
-    evt.preventDefault();
     // const shapes = Array.from(evt.changedTouches).map((te) => {
     //   if (hasXY(te)) {
     //     this.updatePoints(te.identifier, te.clientX, te.clientY);
