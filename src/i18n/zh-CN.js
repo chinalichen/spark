@@ -5,7 +5,7 @@ export default {
   'app.share': '分享',
   'app.rename': '重命名',
   'app.delete': '删除',
-  'app.designer.go.home': '首页',
+  'app.designer.go.home': '跳转到首页',
   'app.designer.commands.edit': '编辑',
   'app.designer.commands.edit.undo': '撤销',
   'app.designer.commands.edit.redo': '重做',

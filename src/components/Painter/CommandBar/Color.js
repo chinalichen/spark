@@ -4,6 +4,7 @@ import CompactPicker from 'react-color/lib/Compact';
 import Popover from 'antd/lib/popover';
 
 import 'antd/es/popover/style/index.css';
+import { FormattedMessage } from 'react-intl';
 
 export default class Color extends Component {
   static propTypes = {
@@ -32,19 +33,19 @@ export default class Color extends Component {
       <div>
         <Popover
           placement="bottomRight"
-          title="Fore/Back Color picker"
+          title={<FormattedMessage id="app.designer.commands.color.picker" />}
           content={
             <div className="pickerContainer">
-              <h1>Fore color</h1>
+              <h1><FormattedMessage id="app.designer.commands.color.fore" /></h1>
               <CompactPicker color={foreColor} onChangeComplete={this.handleForeColorChange} />
               <hr />
-              <h1>Back color</h1>
+              <h1><FormattedMessage id="app.designer.commands.color.back" /></h1>
               <CompactPicker color={backColor} onChangeComplete={this.handleBackColorChange} />
             </div>
           }
           trigger="click">
           <div>
-            Color
+            <FormattedMessage id="app.designer.commands.color" />
             <div className="colorIndicator">
               <div className="back color" style={{ backgroundColor: backColor }}></div>
               <div className="fore color" style={{ backgroundColor: foreColor }}></div>

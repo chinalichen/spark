@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'antd/lib/icon';
 import Separator from './Separator';
+import { FormattedMessage } from 'react-intl';
 
 export default class Edit extends Component {
   static propTypes = {
@@ -11,15 +12,16 @@ export default class Edit extends Component {
   render() {
     return (
       <div className="section edit">
-        Edit
+        <FormattedMessage id="app.designer.commands.edit" />
         <div className="horizontalIcons">
-          <a title="undo" onClick={this.props.undo}>
-            <Icon type="rollback" />
-          </a>
+
+          <FormattedMessage id="app.designer.commands.edit.undo">
+            {text => <a title={text} onClick={this.props.undo}><Icon type="rollback" /></a>}
+          </FormattedMessage>
           <Separator />
-          <a title="redo" onClick={this.props.redo}>
-            <Icon type="rollback" style={{ transform: 'scaleX(-1)' }} />
-          </a>
+          <FormattedMessage id="app.designer.commands.edit.redo">
+            {text => <a title={text} onClick={this.props.redo}><Icon type="rollback" style={{ transform: 'scaleX(-1)' }} /></a>}
+          </FormattedMessage>
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ import InputNumber from 'antd/lib/input-number';
 import 'antd/es/menu/style/index.css';
 import 'antd/es/dropdown/style/index.css';
 import 'antd/es/input-number/style/index.css';
+import { FormattedMessage } from 'react-intl';
 
 export default class Size extends Component {
   static propTypes = {
@@ -34,7 +35,7 @@ export default class Size extends Component {
   render() {
     return (
       <div className="section">
-        Size
+        <FormattedMessage id="app.designer.commands.size" />
         <div>
           <Dropdown overlay={this.getSizeMenu()}>
             <a>{this.getSize()}</a>

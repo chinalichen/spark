@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import 'antd/es/menu/style/index.css';
 import 'antd/es/dropdown/style/index.css';
+import { FormattedMessage } from 'react-intl';
 
 export default class Shapes extends Component {
   static propTypes = {
@@ -21,10 +22,12 @@ export default class Shapes extends Component {
     return (
       <Menu>
         <Menu.Item onClick={this.handleShapeClick.bind(this, 'Pencil')}>
-          <Icon type="edit" /> Pencil
+          <Icon type="edit" />
+          <FormattedMessage id="app.designer.commands.shape.pencil" />
         </Menu.Item>
         <Menu.Item onClick={this.handleShapeClick.bind(this, 'Eraser')}>
-          <Icon type="laptop" /> Eraser
+          <Icon type="laptop" />
+          <FormattedMessage id="app.designer.commands.shape.eraser" />
         </Menu.Item>
       </Menu>
     );
@@ -36,7 +39,7 @@ export default class Shapes extends Component {
 
     return (
       <div className="section">
-        Shape
+        <FormattedMessage id="app.designer.commands.shape" />
         <div>
           <Dropdown overlay={this.getMenu()}>
             <a>{shape}</a>

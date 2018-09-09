@@ -9,7 +9,7 @@ import 'antd/es/menu/style/index.css';
 import 'antd/es/icon/style/css';
 import 'antd/es/divider/style/index.css';
 import 'antd/es/dropdown/style/index.css';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelative, FormattedMessage } from 'react-intl';
 
 export default class Doc extends Component {
   static propTypes = {
@@ -20,10 +20,12 @@ export default class Doc extends Component {
     return (
       <Menu>
         <Menu.Item onClick={() => this.props.onDelete(doc)}>
-          <Icon type="edit" />Rename
+          <Icon type="edit" />
+          <FormattedMessage id="app.rename" />
         </Menu.Item>
         <Menu.Item onClick={() => this.props.onDelete(doc)}>
-          <Icon type="delete" />Delete
+          <Icon type="delete" />
+          <FormattedMessage id="app.delete" />
         </Menu.Item>
       </Menu>
     );
@@ -53,7 +55,7 @@ export default class Doc extends Component {
         </div>
         <div className="commands">
           <span>
-            <a><Icon type="share-alt" /> Share</a>
+            <a><Icon type="share-alt" /> <FormattedMessage id="app.share" /></a>
             <Divider type="vertical" />
             <Dropdown overlay={this.getDocMoreActions(doc)}>
               <a className="ant-dropdown-link"><Icon type="ellipsis" /></a>

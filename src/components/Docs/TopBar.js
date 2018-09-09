@@ -10,46 +10,34 @@ import 'antd/es/menu/style/index.css';
 import Layout from 'antd/lib/layout';
 import Button from 'antd/lib/button';
 import 'antd/es/input/style/index.css';
+import { FormattedMessage } from 'react-intl';
 
 export default class TopBar extends Component {
   static propTypes = {
     doc: PropTypes.object,
     onCreateDoc: PropTypes.func,
   };
-  getDocMoreActions(doc) {
-    return (
-      <Menu>
-        <Menu.Item onClick={() => this.props.deleteDoc(doc)}>
-          Delete
-        </Menu.Item>
-      </Menu>
-    );
-  }
   render() {
     return (
       <Layout.Header className="topBar">
         <div className="logo">
-          <Link to="/">Spark</Link>
+          <Link to="/"><FormattedMessage id="app.product.name" /></Link>
         </div>
         <div className="commandsContainer">
           <div className="commands">
             <Button type="primary" icon="plus" className="create fixed command" onClick={this.props.onCreateDoc}>
-              <span>Create</span>
+              <span><FormattedMessage id="app.create" /></span>
             </Button>
-            <Search
-              className="command"
-              placeholder="input search text"
-              onSearch={value => console.log(value)}
-              style={{ width: 200 }}
-            />
-            {/* <Dropdown
-              className="command"
-              overlay={this.getDocMoreActions(doc)}
-            >
-              <a className="ant-dropdown-link">
-                <Icon type="user" />Lichen
-              </a>
-            </Dropdown> */}
+            <FormattedMessage id="app.search">
+              {text => (
+                <Search
+                  className="command"
+                  placeholder={text}
+                  onSearch={value => console.log(value)}
+                  style={{ width: 200 }}
+                />
+              )}
+            </FormattedMessage>
           </div>
         </div>
       </Layout.Header>
