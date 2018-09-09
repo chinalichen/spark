@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.7.3",
     "axios": "^0.18.0",
+    "intl": "^1.2.5",
     "koa": "^2.5.2",
     "koa-bodyparser": "^2.5.0",
     "koa-router": "^7.4.0",
