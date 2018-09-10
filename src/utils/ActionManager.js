@@ -21,14 +21,18 @@ export default class ActionManager {
       return;
     }
     const action = this.redoActions.pop();
-    this.actions.push(action);
-    this.state = action.execute(this.state);
+    if (action.canExecute()) {
+      this.actions.push(action);
+      this.state = action.execute(this.state);
+    }
     this.emitOnChange();
   }
   executeAction(action) {
     this.state = action.execute(this.state);
 
-    this.actions.push(action);
+    if (action.canUndo()) {
+      this.actions.push(action);
+    }
     if (this.redoActions.length !== 0) {
       this.redoActions = [];
     }

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import Icon from 'antd/lib/icon';
 import Painter from "../Painter";
 import { getShapes } from '../../services/shape';
-import { updateDoc, getDoc, trackDoc, untrackDoc } from '../../services/doc';
+import { getDoc, trackDoc, untrackDoc } from '../../services/doc';
 import { wsUrl } from '../../utils/url';
 
 import 'antd/es/icon/style/css';
 import './Designer.css';
 import ActionManager from '../../utils/ActionManager';
-import { CreateShapesAction, UpdateSettingsAction } from '../../utils/Actions';
+import { CreateShapesAction, UpdateSettingsAction, CreateShapesSyncDisabledAction, DeleteShapesSyncDisabledAction } from '../../utils/Actions';
+import { notificationHandler } from './NotificationHandler';
 
 export default class Designer extends Component {
   constructor(props) {
@@ -30,7 +31,6 @@ export default class Designer extends Component {
     return this.props.match.params.docID;
   }
   componentDidMount() {
-    const self = this;
     const docID = this.getDocID();
     Promise
       .all([getDoc(docID), getShapes(docID)])
@@ -39,28 +39,15 @@ export default class Designer extends Component {
         this.initActionManager(merged);
         this.setState({ doc: merged, loading: false });
       });
+
     trackDoc(docID);
+
     this.ws = new WebSocket(wsUrl(), 'ws');
-    this.ws.addEventListener('message', function (evt) {
-      const json = evt.data;
-      if (!json) {
-        return;
-      }
-      const notification = JSON.parse(json);
-      if (notification.type === 'createShapes' && (notification.docID === docID)) {
-        const shapes = notification.shapes;
-        if (shapes && shapes.length > 0) {
-          const doc = {
-            ...self.state.doc,
-            shapes: self.state.doc.shapes.concat(shapes),
-          };
-          self.setState({ doc });
-        }
-      }
-    });
+    this.ws.addEventListener('message', (evt) => notificationHandler(docID, this.actionManager, evt));
   }
   componentWillUnmount() {
     untrackDoc(this.getDocID());
+    this.ws.close();
   }
   handleCreateShapes(shapes) {
     const action = new CreateShapesAction(shapes);
@@ -83,7 +70,6 @@ export default class Designer extends Component {
   render() {
     return (
       <div className="designer">
-        {this.state.loading && <Icon type="sync" />}
         <Painter
           doc={this.state.doc}
           undo={this.undo}
@@ -91,6 +77,11 @@ export default class Designer extends Component {
           onSettingsChange={this.handleSettingsChange}
           onCreateShapes={this.handleCreateShapes}
         />
+        {this.state.loading && (
+          <div className="loadingContainer">
+            <Icon type="loading" />
+          </div>
+        )}
       </div>
     );
   }

@@ -2,10 +2,21 @@ import { createShapes, deleteShapes } from "../services/shape";
 import { updateDoc } from "../services/doc";
 
 export class Action {
+  canExecute() { return true; }
   execute() { }
   executeServer() { }
+  canUndo() { return true; }
   undo() { }
   undoServer() { }
+}
+
+function DisableSync(actionType) {
+  return class Disabled extends actionType {
+    canExecute() { return true }
+    executeServer() { }
+    canUndo() { return false }
+    undoServer() { }
+  }
 }
 
 export class CreateShapesAction extends Action {
@@ -34,6 +45,7 @@ export class CreateShapesAction extends Action {
     deleteShapes(docID, ids);
   }
 }
+export const CreateShapesSyncDisabledAction = DisableSync(CreateShapesAction);
 
 export class UpdateSettingsAction extends Action {
   constructor(settings) {
@@ -58,3 +70,21 @@ export class UpdateSettingsAction extends Action {
     updateDoc(doc);
   }
 }
+export const UpdateSettingsSyncDisabledAction = DisableSync(UpdateSettingsAction);
+
+export class DeleteShapesAction extends Action {
+  constructor(shapesIDs) {
+    super();
+    this.ctx = { shapesIDs };
+  }
+  execute(doc) {
+    const shapesIDs = this.ctx.shapesIDs.reduce((map, shapeID) => ({ ...map, [shapeID]: true }), {});
+    const shapes = doc.shapes.filter(s => !shapesIDs[s.id]);
+    const newDoc = { ...doc, shapes };
+    return newDoc;
+  }
+  executeServer() { }
+  undo() { }
+  undoServer() { }
+}
+export const DeleteShapesSyncDisabledAction = DisableSync(DeleteShapesAction);
