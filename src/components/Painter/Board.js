@@ -209,13 +209,13 @@ export default class Board extends Component {
           <svg className="svgDrawing">
             {this.state.currentPaths.map(({ key, d, ...styles }) => <path key={key} d={d} style={{ ...styles }} />)}
           </svg>
-          <div
+          {/* <div
             className="cornerResizer"
             // style={{ top: this.canvasRect.bottom + 'px', left: this.canvasRect.right + 'px' }}
             onMouseDown={this.handleCanvasResizeStart}
             onMouseMove={this.handleCanvasResizing}
             onMouseUp={this.handleCanvasResizeEnd}
-          ></div>
+          ></div> */}
         </div>
       </div>
     );
