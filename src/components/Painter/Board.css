@@ -1,8 +1,8 @@
 .board {
   height: 100%;
+  background-repeat: repeat;
   padding: 1rem;
-  background-image: url(/images/transparent.png);
-  background-repeat: repeat; }
+  background-image: url(/images/transparent.png); }
   .board .canvas {
     height: 100%;
     position: relative;
@@ -26,3 +26,7 @@
     fill: none;
     stroke: black;
     stroke-width: 3; }
+  @media screen and (max-width: 600px) {
+    .board {
+      padding: 0;
+      background-image: none; } }
