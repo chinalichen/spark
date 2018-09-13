@@ -12,6 +12,16 @@ export function deleteDoc(docID) {
   return axios.delete(`/api/docs/${docID}`);
 }
 
+export function uploadDocThumbnail(docID, files) {
+  const formData = new FormData();
+  files.forEach(f => formData.append(f.name, f));
+  return axios.post(`/api/docs/${docID}/thumbnail`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+}
+
 export function getDoc(docID) {
   return axios.get(`/api/docs/${docID}`)
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Icon from 'antd/lib/icon';
 import Painter from "../Painter";
 import { getShapes } from '../../services/shape';
-import { getDoc, trackDoc, untrackDoc } from '../../services/doc';
+import { getDoc, trackDoc, untrackDoc, uploadDocThumbnail } from '../../services/doc';
 import { wsUrl } from '../../utils/url';
 
 import 'antd/es/icon/style/css';
@@ -10,6 +10,7 @@ import './Designer.css';
 import ActionManager from '../../utils/ActionManager';
 import { CreateShapesAction, UpdateSettingsAction, CreateShapesSyncDisabledAction, DeleteShapesSyncDisabledAction } from '../../utils/Actions';
 import { notificationHandler } from './NotificationHandler';
+import { generateThumbnail } from '../../utils/thumbnail';
 
 export default class Designer extends Component {
   constructor(props) {
@@ -48,6 +49,9 @@ export default class Designer extends Component {
   componentWillUnmount() {
     untrackDoc(this.getDocID());
     this.ws.close();
+    generateThumbnail(document.getElementById('presenterSvg'), this.state.doc.name, file => {
+      uploadDocThumbnail(this.getDocID(), [file]);
+    });
   }
   handleCreateShapes(shapes) {
     const action = new CreateShapesAction(shapes);

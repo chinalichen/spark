@@ -32,6 +32,16 @@ async function getDocs(ctx) {
   ctx.body = docs;
 }
 
+async function updateDocThumbnail(ctx) {
+  const docID = ctx.params.docID;
+  const file = ctx.request.files.file;
+  const reader = fs.createReadStream(file.path);
+  const stream = fs.createWriteStream(path.join(os.tmpdir(), `${docID}.png`));
+  reader.pipe(stream);
+  ctx.status = 200;
+  ctx.body = { from: file.name, to: stream.path };
+}
+
 async function deleteDoc(ctx) {
   const docID = ctx.params.docID;
   const doc = await Doc.deleteDoc(docID);
@@ -57,6 +67,7 @@ export default function docs(router) {
     .post('/api/docs', postDoc)
     .put('/api/docs/:docID', putDoc)
     .delete('/api/docs/:docID', deleteDoc)
+    .post('/api/docs/:docID/thumbnail', updateDocThumbnail)
     .post('/api/docs/:docID/tracking', trackDoc)
     .delete('/api/docs/:docID/tracking', untrackDoc);
 }
