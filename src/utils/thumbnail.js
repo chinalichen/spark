@@ -22,7 +22,6 @@ export function generateThumbnail(svgElem, fileName, callback) {
   var canvas = document.createElement('canvas')
   var ctx = canvas.getContext('2d');
 
-  var svgElem = document.getElementById('presenterSvg');
   var svg = new XMLSerializer().serializeToString(svgElem);
   var data = encodeURIComponent(svg);
   var img = new Image();

@@ -203,7 +203,7 @@ export default class Board extends Component {
           onMouseUp={this.handleDrawEnd}
           style={{ ...canvasStyle }}
         >
-          <svg id={presenterSvg} className="svgDrawing">
+          <svg id="presenterSvg" className="svgDrawing">
             {shapes}
           </svg>
           <svg className="svgDrawing">

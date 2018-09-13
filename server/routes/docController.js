@@ -1,5 +1,9 @@
 import * as Doc from '../modules/Doc';
+import koaBody from 'koa-body';
 import { STATUS_CODES } from 'http';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 async function postDoc(ctx) {
   const doc = ctx.request.body;
@@ -34,7 +38,8 @@ async function getDocs(ctx) {
 
 async function updateDocThumbnail(ctx) {
   const docID = ctx.params.docID;
-  const file = ctx.request.files.file;
+  const [thumbnailName] = Object.keys(ctx.request.files);
+  const file = ctx.request.files[thumbnailName];
   const reader = fs.createReadStream(file.path);
   const stream = fs.createWriteStream(path.join(os.tmpdir(), `${docID}.png`));
   reader.pipe(stream);
@@ -67,7 +72,7 @@ export default function docs(router) {
     .post('/api/docs', postDoc)
     .put('/api/docs/:docID', putDoc)
     .delete('/api/docs/:docID', deleteDoc)
-    .post('/api/docs/:docID/thumbnail', updateDocThumbnail)
+    .post('/api/docs/:docID/thumbnail', koaBody({ multipart: true }), updateDocThumbnail)
     .post('/api/docs/:docID/tracking', trackDoc)
     .delete('/api/docs/:docID/tracking', untrackDoc);
 }
