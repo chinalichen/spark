@@ -37,13 +37,17 @@ async function getDocs(ctx) {
 }
 
 async function updateDocThumbnail(ctx) {
+  const userID = ctx.userID;
   const docID = ctx.params.docID;
+  const fullName = path.join(process.cwd(), 'build', 'images', `${docID}.png`);
+
   const [thumbnailName] = Object.keys(ctx.request.files);
   const file = ctx.request.files[thumbnailName];
   const reader = fs.createReadStream(file.path);
-  console.log(`[${new Date().toJSON()}]`, '[updateDocThumbnail] current path', process.cwd());
-  const stream = fs.createWriteStream(path.join(os.tmpdir(), `${docID}.png`));
+  console.log(`[${new Date().toJSON()}]`, '[updateDocThumbnail][thumbnail directory path]:', fullName);
+  const stream = fs.createWriteStream(fullName);
   reader.pipe(stream);
+  await Doc.updateDocThumbnail(docID, userID);
   ctx.status = 200;
   ctx.body = { from: file.name, to: stream.path };
 }

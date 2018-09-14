@@ -39,6 +39,11 @@ export async function createDoc(doc) {
   return createdDoc;
 }
 
+export async function updateDocThumbnail(docID, userID) {
+  const udpatedDoc = await DocModel.update({ id: docID }, { modifyTime: new Date(), modifyBy: userID });
+  return udpatedDoc;
+}
+
 export async function updateDoc(doc) {
   const udpatedDoc = await DocModel.update({ id: doc.id }, doc);
   return udpatedDoc;

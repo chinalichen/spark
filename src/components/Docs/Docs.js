@@ -30,7 +30,8 @@ export default class Docs extends Component {
     });
   }
   createNewDoc() {
-    const doc = { id: generateID(), name: `spark${this.state.docs.length + 1}`, modifyTime: new Date() };
+    const timestamp = new Date();
+    const doc = { id: generateID(), name: `spark${this.state.docs.length + 1}`, createTime: timestamp, modifyTime: timestamp };
     const docs = this.state.docs.concat(doc);
     createDoc(doc).then(() => {
       this.setState({ docs });
