@@ -41,6 +41,7 @@ async function updateDocThumbnail(ctx) {
   const [thumbnailName] = Object.keys(ctx.request.files);
   const file = ctx.request.files[thumbnailName];
   const reader = fs.createReadStream(file.path);
+  console.log(`[${new Date().toJSON()}]`, '[updateDocThumbnail] current path', process.cwd());
   const stream = fs.createWriteStream(path.join(os.tmpdir(), `${docID}.png`));
   reader.pipe(stream);
   ctx.status = 200;
