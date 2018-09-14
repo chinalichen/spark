@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import Koa from 'koa';
 import Router from 'koa-router';
-import bodyParser from 'koa-bodyparser';
 import koaBody from 'koa-body';
 import websockify from 'koa-websocket';
 import { apis, websockets } from './routes';
