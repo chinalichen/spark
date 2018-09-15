@@ -19,15 +19,27 @@ if (!HTMLCanvasElement.prototype.toBlob) {
 }
 
 export function generateThumbnail(svgElem, fileName, callback) {
+  const [thumbnailWidth, thumbnailHeight] = [64, 48];
+  Array.from(document.getElementsByTagName('canvas')).forEach(e => e.remove());
   var canvas = document.createElement('canvas')
+  canvas.width = thumbnailWidth;
+  canvas.height = thumbnailHeight;
+  canvas.style.position = 'absolute';
+  canvas.style.right = '100px';
+  canvas.style.bottom = '100px';
   var ctx = canvas.getContext('2d');
-
+  const { width, height } = svgElem.getBoundingClientRect();
+  svgElem.setAttribute('viewBox', `0,0,${width},${height}`);
   var svg = new XMLSerializer().serializeToString(svgElem);
   var data = encodeURIComponent(svg);
   var img = new Image();
+  img.height = thumbnailHeight;
+  img.width = thumbnailWidth;
+  img.style.objectFit = 'scale-down';
   img.onload = function () {
-    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(img, 0, 0, thumbnailWidth, thumbnailHeight);
     console.log(canvas.toDataURL());
+    document.body.appendChild(canvas);
 
     canvas.toBlob(function (blob) {
       var file = blobToFile(blob, fileName);
