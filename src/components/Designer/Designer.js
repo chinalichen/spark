@@ -45,6 +45,8 @@ export default class Designer extends Component {
 
     this.ws = new WebSocket(wsUrl(), 'ws');
     this.ws.addEventListener('message', (evt) => notificationHandler(docID, this.actionManager, evt));
+
+    document.body.addEventListener('touchmove', e => e.preventDefault());
   }
   componentWillUnmount() {
     const [docID, name] = [this.getDocID, this.state.doc.name];
