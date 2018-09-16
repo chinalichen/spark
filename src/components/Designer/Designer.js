@@ -47,11 +47,13 @@ export default class Designer extends Component {
     this.ws.addEventListener('message', (evt) => notificationHandler(docID, this.actionManager, evt));
   }
   componentWillUnmount() {
-    untrackDoc(this.getDocID());
+    const [docID, name] = [this.getDocID, this.state.doc.name];
+    untrackDoc(docID);
     this.ws.close();
-    generateThumbnail(document.getElementById('presenterSvg'), this.state.doc.name, file => {
-      uploadDocThumbnail(this.getDocID(), [file]);
-    });
+    if (this.actionManager && this.actionManager.hasActions()) {
+      const svgElem = document.getElementById('presenterSvg');
+      generateThumbnail(svgElem, name, file => uploadDocThumbnail(docID, [file]));
+    }
   }
   handleCreateShapes(shapes) {
     const action = new CreateShapesAction(shapes);

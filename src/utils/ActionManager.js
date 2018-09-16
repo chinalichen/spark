@@ -7,6 +7,9 @@ export default class ActionManager {
 
     this.onChange = null;
   }
+  hasActions() {
+    return this.actions.length > 0;
+  }
   undo() {
     if (this.actions.length === 0) {
       return;
