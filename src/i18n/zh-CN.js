@@ -5,6 +5,8 @@ export default {
   'app.share': '分享',
   'app.rename': '重命名',
   'app.delete': '删除',
+  'app.docs.create.tip.part1': '要创建一个 spark 请点击 ',
+  'app.docs.create.tip.part2': ' 按钮',
   'app.designer.go.home': '跳转到首页',
   'app.designer.commands.edit': '编辑',
   'app.designer.commands.edit.undo': '撤销',

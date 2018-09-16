@@ -5,6 +5,8 @@ export default {
   'app.share': 'Share',
   'app.rename': 'Rename',
   'app.delete': 'Delete',
+  'app.docs.create.tip.part1': 'Press ',
+  'app.docs.create.tip.part2': ' button to create a new spark',
   'app.designer.go.home': 'Goto home page',
   'app.designer.commands.edit': 'Edit',
   'app.designer.commands.edit.undo': 'Undo',

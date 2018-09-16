@@ -16,6 +16,7 @@ import 'antd/es/list/style/index.css';
 import 'antd/es/button/style/index.css';
 import 'antd/es/layout/style/index.css';
 import './Docs.css';
+import { FormattedMessage } from 'react-intl';
 
 export default class Docs extends Component {
   constructor(props) {
@@ -52,8 +53,21 @@ export default class Docs extends Component {
       </Menu>
     );
   }
+  getEmptyTextComponent() {
+    return (
+      <span>
+        <FormattedMessage id="app.docs.create.tip.part1" />
+        <Button className="inline" type="primary" icon="plus" onClick={this.createNewDoc}>
+          <FormattedMessage id="app.create" />
+        </Button>
+        <FormattedMessage id="app.docs.create.tip.part2" />
+      </span>
+    );
+  }
   render() {
     const docs = this.state.docs.map(doc => ({ ...doc, key: doc.id }));
+
+
     return (
       <div className="docsContainer">
         <Layout className="layout">
@@ -63,7 +77,7 @@ export default class Docs extends Component {
               {this.state.loading
                 ? <Icon type="loading" />
                 : <List
-                  locale={{ emptyText: <span>Press <Button className="inline" type="primary" icon="plus" onClick={this.createNewDoc}>Create</Button> button to create a new spark.</span> }}
+                  locale={{ emptyText: this.getEmptyTextComponent() }}
                   itemLayout="horizontal"
                   dataSource={docs}
                   renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
