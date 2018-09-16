@@ -24,9 +24,6 @@ export function generateThumbnail(svgElem, fileName, callback) {
   var canvas = document.createElement('canvas')
   canvas.width = thumbnailWidth;
   canvas.height = thumbnailHeight;
-  canvas.style.position = 'absolute';
-  canvas.style.right = '100px';
-  canvas.style.bottom = '100px';
   var ctx = canvas.getContext('2d');
   const { width, height } = svgElem.getBoundingClientRect();
   svgElem.setAttribute('viewBox', `0,0,${width},${height}`);
@@ -38,24 +35,11 @@ export function generateThumbnail(svgElem, fileName, callback) {
   img.style.objectFit = 'scale-down';
   img.onload = function () {
     ctx.drawImage(img, 0, 0, thumbnailWidth, thumbnailHeight);
-    console.log(canvas.toDataURL());
-    document.body.appendChild(canvas);
-
     canvas.toBlob(function (blob) {
       var file = blobToFile(blob, fileName);
       if (callback) {
         callback(file);
       }
-      // var newImg = document.createElement('img'),
-      //   url = URL.createObjectURL(blob);
-
-      // newImg.onload = function () {
-      //   // no longer need to read the blob so it's revoked
-      //   URL.revokeObjectURL(url);
-      // };
-
-      // newImg.src = url;
-      // document.body.appendChild(newImg);
     });
   }
 
