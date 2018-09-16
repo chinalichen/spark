@@ -49,7 +49,7 @@ export default class Designer extends Component {
     document.body.addEventListener('touchmove', e => e.preventDefault());
   }
   componentWillUnmount() {
-    const [docID, name] = [this.getDocID, this.state.doc.name];
+    const [docID, name] = [this.getDocID(), this.state.doc.name];
     untrackDoc(docID);
     this.ws.close();
     if (this.actionManager && this.actionManager.hasActions()) {
