@@ -39,7 +39,7 @@ async function getDocs(ctx) {
 async function updateDocThumbnail(ctx) {
   const userID = ctx.userID;
   const docID = ctx.params.docID;
-  const fullName = path.join(process.cwd(), 'build', 'images', `${docID}.png`);
+  const fullName = process.env['NODE_ENV'] === 'development' ? path.join(process.cwd(), 'public', 'images', `${docID}.png`) : path.join(process.cwd(), 'build', 'images', `${docID}.png`);
 
   const [thumbnailName] = Object.keys(ctx.request.files);
   const file = ctx.request.files[thumbnailName];

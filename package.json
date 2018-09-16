@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build-server": "babel server/ --out-dir build-server",
-    "serve": "babel-node --inspect --presets env --plugins transform-object-rest-spread server/main.js --inspect",
+    "serve": " set NODE_ENV=development&& babel-node --inspect --presets env --plugins transform-object-rest-spread server/main.js --inspect",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
