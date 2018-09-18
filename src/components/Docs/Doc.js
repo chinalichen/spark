@@ -15,11 +15,12 @@ export default class Doc extends Component {
   static propTypes = {
     doc: PropTypes.object,
     onDelete: PropTypes.func,
+    onRename: PropTypes.func,
   };
   getDocMoreActions(doc) {
     return (
       <Menu>
-        <Menu.Item onClick={() => this.props.onDelete(doc)}>
+        <Menu.Item onClick={() => this.props.onRename(doc)}>
           <Icon type="edit" />
           <FormattedMessage id="app.rename" />
         </Menu.Item>

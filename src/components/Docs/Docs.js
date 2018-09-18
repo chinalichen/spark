@@ -4,7 +4,7 @@ import Icon from 'antd/lib/icon';
 import List from 'antd/lib/list';
 import Button from 'antd/lib/button';
 import Layout from 'antd/lib/layout';
-import { getDocs, createDoc, deleteDoc } from '../../services/doc';
+import { getDocs, createDoc, deleteDoc, updateDoc } from '../../services/doc';
 import { generateID } from '../../utils/id';
 import Doc from './Doc';
 import TopBar from './TopBar';
@@ -24,6 +24,7 @@ export default class Docs extends Component {
     this.state = { docs: [], loading: true };
     this.createNewDoc = this.createNewDoc.bind(this);
     this.deleteDoc = this.deleteDoc.bind(this);
+    this.renameDoc = this.renameDoc.bind(this);
   }
   componentDidMount() {
     getDocs().then(({ data: docs }) => {
@@ -42,6 +43,15 @@ export default class Docs extends Component {
   deleteDoc(doc) {
     deleteDoc(doc.id).then(() => {
       this.setState({ docs: this.state.docs.filter(d => d.id !== doc.id) });
+    });
+  }
+  renameDoc(doc) {
+    const name = window.prompt("Please enter a new name", doc.name);
+    const newDoc = { ...doc, name };
+    updateDoc(newDoc).then(() => {
+      const index = this.state.docs.findIndex(d => d.id === doc.id);
+      const docs = this.state.docs.slice(0, index).concat(newDoc).concat(this.state.docs.slice(index + 1));
+      this.setState({ docs });
     });
   }
   getDocMoreActions(doc) {
@@ -80,7 +90,11 @@ export default class Docs extends Component {
                   locale={{ emptyText: this.getEmptyTextComponent() }}
                   itemLayout="horizontal"
                   dataSource={docs}
-                  renderItem={doc => <List.Item className="item"><Doc doc={doc} onDelete={this.deleteDoc} /></List.Item>}
+                  renderItem={doc => (
+                    <List.Item className="item">
+                      <Doc doc={doc} onDelete={this.deleteDoc} onRename={this.renameDoc} />
+                    </List.Item>
+                  )}
                 />}
             </div>
           </Layout.Content>
