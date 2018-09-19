@@ -25,11 +25,15 @@ export default class Docs extends Component {
     this.createNewDoc = this.createNewDoc.bind(this);
     this.deleteDoc = this.deleteDoc.bind(this);
     this.renameDoc = this.renameDoc.bind(this);
+    this.searchDoc = this.searchDoc.bind(this);
   }
   componentDidMount() {
     getDocs().then(({ data: docs }) => {
       this.setState({ docs, loading: false });
     });
+  }
+  searchDoc(keyword) {
+    this.setState({ keyword });
   }
   createNewDoc() {
     const timestamp = new Date();
@@ -74,14 +78,21 @@ export default class Docs extends Component {
       </span>
     );
   }
+  getFilteredDocs() {
+    const { docs, keyword } = this.state;
+    if (!keyword) {
+      return docs;
+    }
+    const lower = keyword.toLowerCase();
+    return this.state.docs.filter(doc => doc.name.toLowerCase().indexOf(lower) !== -1);
+  }
   render() {
-    const docs = this.state.docs.map(doc => ({ ...doc, key: doc.id }));
-
+    const docs = this.getFilteredDocs().map(doc => ({ ...doc, key: doc.id }));
 
     return (
       <div className="docsContainer">
         <Layout className="layout">
-          <TopBar onCreateDoc={this.createNewDoc} />
+          <TopBar onCreateDoc={this.createNewDoc} onSearchDoc={this.searchDoc} />
           <Layout.Content className="docList">
             <div style={{ background: '#fff' }}>
               {this.state.loading

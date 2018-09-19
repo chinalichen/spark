@@ -16,6 +16,7 @@ export default class TopBar extends Component {
   static propTypes = {
     doc: PropTypes.object,
     onCreateDoc: PropTypes.func,
+    onSearchDoc: PropTypes.func,
   };
   render() {
     return (
@@ -33,7 +34,7 @@ export default class TopBar extends Component {
                 <Search
                   className="command"
                   placeholder={text}
-                  onSearch={value => console.log(value)}
+                  onSearch={this.props.onSearchDoc}
                   style={{ width: 200 }}
                 />
               )}
