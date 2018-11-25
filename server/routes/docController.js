@@ -5,6 +5,20 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
+function getThumbnailPath(docID) {
+  let dir = '';
+  if (process.env['NODE_ENV'] === 'development') {
+    dir = path.join(process.cwd(), 'public', 'images/thumbnails')
+  } else {
+    dir = path.join(process.cwd(), 'build', 'images/thumbnails');
+  }
+
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  return path.join(dir, `${docID}.png`)
+}
+
 async function postDoc(ctx) {
   const doc = ctx.request.body;
   doc.userID = ctx.userID;
@@ -39,7 +53,7 @@ async function getDocs(ctx) {
 async function updateDocThumbnail(ctx) {
   const userID = ctx.userID;
   const docID = ctx.params.docID;
-  const fullName = process.env['NODE_ENV'] === 'development' ? path.join(process.cwd(), 'public', 'images', `${docID}.png`) : path.join(process.cwd(), 'build', 'images', `${docID}.png`);
+  const fullName = getThumbnailPath(docID);
 
   const [thumbnailName] = Object.keys(ctx.request.files);
   const file = ctx.request.files[thumbnailName];

@@ -40,7 +40,7 @@ export default class Doc extends Component {
     }
     const doc = this.props.doc;
     const newDoc = doc.createTime === doc.modifyTime;
-    const thumbnailURL = newDoc ? 'http://m.link27.com/data/news/jbh/1n2iyfwgt02.jpg' : `/images/${doc.id}.png`;
+    const thumbnailURL = newDoc ? 'http://m.link27.com/data/news/jbh/1n2iyfwgt02.jpg' : `/images/thumbnails/${doc.id}.png`;
     return (
       <div className="doc">
         <div className="clickable" onClick={this.goToDoc.bind(this, doc.id)}>
