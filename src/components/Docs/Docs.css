@@ -73,3 +73,6 @@
       box-shadow: 0px 0px 5px 1px grey; }
       .docsContainer .create span {
         display: none; } }
+
+.sharePanel {
+  border: 1px black solid; }

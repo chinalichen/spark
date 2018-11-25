@@ -5,11 +5,14 @@ import Menu from 'antd/lib/menu';
 import Icon from 'antd/lib/icon';
 import Divider from 'antd/lib/divider';
 import Dropdown from 'antd/lib/dropdown';
+import Button from 'antd/lib/button';
 import 'antd/es/menu/style/index.css';
 import 'antd/es/icon/style/css';
 import 'antd/es/divider/style/index.css';
 import 'antd/es/dropdown/style/index.css';
 import { FormattedRelative, FormattedMessage } from 'react-intl';
+import QRCode from 'qrcode.react';
+
 
 export default class Doc extends Component {
   static propTypes = {
@@ -29,6 +32,24 @@ export default class Doc extends Component {
           <FormattedMessage id="app.delete" />
         </Menu.Item>
       </Menu>
+    );
+  }
+  getShareDocActions(doc) {
+    const url = `${window.location.href}designer/${doc.id}`;
+    return (
+      <div className="sharePanel">
+        <textarea id={doc.id}>{url}</textarea>
+        <Button onClick={() => {
+          const urlSpan = document.querySelector(`#${doc.id}`);
+          urlSpan.select();
+          document.execCommand('copy');
+        }}>
+          <Icon type="copy" />
+        </Button>
+        <div>
+          <QRCode value={url} />
+        </div>
+      </div>
     );
   }
   goToDoc(id) {
@@ -58,7 +79,9 @@ export default class Doc extends Component {
         </div>
         <div className="commands">
           <span>
-            <a><Icon type="share-alt" /> <FormattedMessage id="app.share" /></a>
+            <Dropdown overlay={this.getShareDocActions(doc)}>
+              <a><Icon type="share-alt" /> <FormattedMessage id="app.share" /></a>
+            </Dropdown>
             <Divider type="vertical" />
             <Dropdown overlay={this.getDocMoreActions(doc)}>
               <a className="ant-dropdown-link"><Icon type="ellipsis" /></a>
