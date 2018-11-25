@@ -6,6 +6,7 @@ import Icon from 'antd/lib/icon';
 import Divider from 'antd/lib/divider';
 import Dropdown from 'antd/lib/dropdown';
 import Button from 'antd/lib/button';
+import Input from 'antd/lib/input';
 import 'antd/es/menu/style/index.css';
 import 'antd/es/icon/style/css';
 import 'antd/es/divider/style/index.css';
@@ -36,16 +37,10 @@ export default class Doc extends Component {
   }
   getShareDocActions(doc) {
     const url = `${window.location.href}designer/${doc.id}`;
+    const copyIcon = <Icon type="copy" onClick={() => { document.querySelector(`#${doc.id}`).select(); document.execCommand('copy'); }} />;
     return (
       <div className="sharePanel">
-        <textarea id={doc.id}>{url}</textarea>
-        <Button onClick={() => {
-          const urlSpan = document.querySelector(`#${doc.id}`);
-          urlSpan.select();
-          document.execCommand('copy');
-        }}>
-          <Icon type="copy" />
-        </Button>
+        <Input id={doc.id} addonAfter={copyIcon} defaultValue={url} />
         <div>
           <QRCode value={url} />
         </div>
@@ -79,11 +74,11 @@ export default class Doc extends Component {
         </div>
         <div className="commands">
           <span>
-            <Dropdown overlay={this.getShareDocActions(doc)}>
+            <Dropdown trigger="click" overlay={this.getShareDocActions(doc)}>
               <a><Icon type="share-alt" /> <FormattedMessage id="app.share" /></a>
             </Dropdown>
             <Divider type="vertical" />
-            <Dropdown overlay={this.getDocMoreActions(doc)}>
+            <Dropdown trigger="click" overlay={this.getDocMoreActions(doc)}>
               <a className="ant-dropdown-link"><Icon type="ellipsis" /></a>
             </Dropdown>
           </span>

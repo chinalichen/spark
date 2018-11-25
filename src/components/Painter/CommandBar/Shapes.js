@@ -41,7 +41,7 @@ export default class Shapes extends Component {
       <div className="section">
         <FormattedMessage id="app.designer.commands.shape" />
         <div>
-          <Dropdown overlay={this.getMenu()}>
+          <Dropdown trigger="click" overlay={this.getMenu()}>
             <a>{shape}</a>
           </Dropdown>
         </div>

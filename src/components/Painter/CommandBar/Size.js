@@ -37,7 +37,7 @@ export default class Size extends Component {
       <div className="section">
         <FormattedMessage id="app.designer.commands.size" />
         <div>
-          <Dropdown overlay={this.getSizeMenu()}>
+          <Dropdown trigger="click" overlay={this.getSizeMenu()}>
             <a>{this.getSize()}</a>
           </Dropdown>
         </div>
